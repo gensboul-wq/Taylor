@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gens Le Couturier</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#F8F5F0;color:#1A1A2E;min-height:100vh}
+.app{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+.header{text-align:center;padding:32px 0 24px;border-bottom:2px solid #C5973A;margin-bottom:28px}
+.header h1{font-family:'Playfair Display',serif;font-size:2rem;color:#1B2B4B;letter-spacing:1px}
+.header p{font-size:.95rem;color:#C5973A;margin-top:4px;font-weight:400;letter-spacing:.5px}
+.tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.tab{padding:9px 20px;border-radius:24px;border:1.5px solid #C5973A;background:transparent;color:#1B2B4B;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .2s}
+.tab.active,.tab:hover{background:#1B2B4B;color:#F8F5F0;border-color:#1B2B4B}
+.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(27,43,75,.10);margin-bottom:20px}
+.card h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:#1B2B4B;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:16px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:.95rem;font-weight:500;color:#C5973A;text-transform:uppercase;letter-spacing:.8px;font-size:.88rem}
+.field input,.field select,.field textarea{border:1.5px solid #DDD5C8;border-radius:8px;padding:11px 12px;font-family:'DM Sans',sans-serif;font-size:.95rem;color:#1A1A2E;background:#FDFAF6;outline:none;transition:border-color .2s;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#1B2B4B}
+.field textarea{resize:vertical;min-height:70px}
+.btn{padding:10px 22px;border-radius:10px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;transition:all .2s}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-primary{background:#1B2B4B;color:#F8F5F0}
+.btn-primary:hover:not(:disabled){background:#0F1D35}
+.btn-outline{background:transparent;border:1.5px solid #C5973A;color:#1B2B4B}
+.btn-outline:hover:not(:disabled){background:#F5E6C8}
+.btn-danger{background:transparent;border:1.5px solid #DC2626;color:#DC2626;font-size:.92rem;padding:6px 14px}
+.btn-sm{padding:6px 14px;font-size:.92rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.client-list{display:flex;flex-direction:column;gap:10px}
+.client-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border:1.5px solid #DDD5C8;border-radius:10px;background:#FDFAF6;cursor:pointer;transition:all .2s;flex-wrap:wrap;gap:8px}
+.client-item:hover{border-color:#1B2B4B;background:#EEF2F9}
+.client-item.selected{border-color:#C5973A;background:#F5E6C8}
+.client-info strong{font-size:1rem;display:block}
+.client-info span{font-size:.92rem;color:#5C5470}
+.mezu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px}
+.mezu-item{background:#EEF2F9;border-radius:8px;padding:10px 12px;border-left:3px solid #C5973A}
+.mezu-item .val{font-family:'Playfair Display',serif;font-size:1.4rem;color:#1B2B4B}
+.mezu-item .lbl{font-size:.95rem;color:#5C5470;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.receipt{background:#fff;border:2px solid #C5973A;border-radius:16px;padding:28px}
+.receipt-header{text-align:center;border-bottom:1.5px dashed #C5973A;padding-bottom:16px;margin-bottom:16px}
+.receipt-header h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:#1B2B4B}
+.receipt-row{display:flex;justify-content:space-between;padding:6px 0;font-size:.9rem;border-bottom:1px dotted #DDD5C8}
+.receipt-row.total{font-weight:700;font-size:1rem;color:#1B2B4B;border-bottom:none;padding-top:12px;border-top:2px solid #C5973A;margin-top:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.95rem;font-weight:500}
+.badge-green{background:#e8f5e9;color:#2e7d32}
+.badge-yellow{background:#fff8e1;color:#f57f17}
+.badge-red{background:#fdecea;color:#c62828}
+.badge-blue{background:#e3f2fd;color:#1565c0}
+.divider{border:none;border-top:1.5px dashed #DDD5C8;margin:16px 0}
+.empty-state{text-align:center;color:#C5973A;padding:32px;font-size:.9rem}
+.empty-state .icon{font-size:2.5rem;margin-bottom:8px}
+.hidden{display:none !important}
+
+/* ===== AUTH SCREEN — SOLID / MÒD ===== */
+.auth-screen{
+  min-height:100vh;display:flex;align-items:stretch;justify-content:center;
+  background:#1A1A2E;
+}
+.auth-left{
+  flex:1;max-width:480px;display:flex;flex-direction:column;
+  justify-content:center;padding:40px 36px;
+  background:#1A1A2E;
+  position:relative;overflow:hidden;
+}
+.auth-left::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,58,15,.35) 0%,transparent 70%);
+  pointer-events:none;
+}
+.auth-left::after{
+  content:'';position:absolute;bottom:-60px;left:-60px;
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,149,106,.2) 0%,transparent 70%);
+  pointer-events:none;
+}
+.auth-brand{margin-bottom:36px;position:relative;z-index:1}
+.auth-brand .scissors{font-size:2.2rem;display:block;margin-bottom:8px}
+.auth-brand h1{font-family:'Playfair Display',serif;font-size:2rem;color:#F8F5F0;letter-spacing:.5px;line-height:1.2}
+.auth-brand p{font-size:.92rem;color:#C5973A;margin-top:6px;letter-spacing:1px;text-transform:uppercase;font-weight:500}
+.auth-form-box{background:#fff;border-radius:16px;padding:28px 24px;position:relative;z-index:1;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.auth-tabs{display:flex;background:#f5ede4;border-radius:10px;padding:3px;margin-bottom:22px;gap:3px}
+.auth-tab{flex:1;padding:9px;border-radius:8px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;color:#5C5470;cursor:pointer;transition:all .2s}
+.auth-tab.active{background:#1B2B4B;color:#F8F5F0}
+.auth-label{display:block;font-size:.95rem;font-weight:600;color:#5C5470;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.auth-input{width:100%;border:2px solid #DDD5C8;border-radius:10px;padding:13px 14px;font-family:'DM Sans',sans-serif;font-size:1rem;color:#1A1A2E;background:#FDFAF6;outline:none;transition:border-color .2s;margin-bottom:14px}
+.auth-input:focus{border-color:#1B2B4B;background:#fff}
+.auth-btn-main{width:100%;padding:13px;border-radius:10px;border:none;background:#1B2B4B;color:#F8F5F0;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.3px;margin-top:4px}
+.auth-btn-main:hover:not(:disabled){background:#0F1D35;transform:translateY(-1px);box-shadow:0 4px 16px rgba(27,43,75,.3)}
+.auth-btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.auth-btn-sec{width:100%;padding:11px;border-radius:10px;border:2px solid #DDD5C8;background:transparent;color:#1B2B4B;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .2s;margin-top:10px}
+.auth-btn-sec:hover{background:#F5E6C8;border-color:#C5973A}
+.auth-error{background:#fff0f0;color:#b91c1c;padding:10px 14px;border-radius:8px;font-size:.92rem;margin-bottom:14px;border-left:3px solid #b91c1c;font-weight:500}
+.auth-success{background:#f0fdf4;color:#15803d;padding:10px 14px;border-radius:8px;font-size:.92rem;margin-bottom:14px;border-left:3px solid #15803d;font-weight:500}
+
+/* ===== SETUP SCREEN ===== */
+.setup-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#F0EDE8 0%,#E8E0D5 100%)}
+.setup-card{background:#fff;border-radius:20px;padding:32px;max-width:520px;width:100%;box-shadow:0 4px 24px rgba(139,58,15,.12)}
+.setup-card h2{font-family:'Playfair Display',serif;color:#1B2B4B;font-size:1.5rem;margin-bottom:8px;text-align:center}
+.setup-card .subtitle{text-align:center;color:#5C5470;font-size:.95rem;margin-bottom:24px}
+.step{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.step-num{background:#1B2B4B;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.92rem;font-weight:700;flex-shrink:0;margin-top:2px}
+.step-text{font-size:.95rem;line-height:1.5;color:#1A1A2E}
+.step-text a{color:#C5973A;font-weight:600}
+.step-text code{background:#EEF2F9;padding:2px 6px;border-radius:4px;font-size:.92rem;color:#1B2B4B}
+
+/* ===== SYNC STATUS ===== */
+.sync-status{display:flex;align-items:center;gap:6px;font-size:.95rem;justify-content:center;margin-top:8px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-green{background:#2e7d32}
+.dot-red{background:#c62828}
+.dot-yellow{background:#f57f17;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ===== USER BAR ===== */
+.user-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.user-bar .user-email{font-size:.95rem;color:#5C5470;background:#EEF2F9;padding:4px 12px;border-radius:20px;border:1px solid #DDD5C8}
+
+/* ===== SPINNER ===== */
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(27,43,75,.15);border-top-color:#1B2B4B;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== TOAST ===== */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1B2B4B;color:#F8F5F0;padding:12px 24px;border-radius:12px;font-size:.95rem;font-weight:500;z-index:9999;transition:transform .3s ease;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.toast-error{background:#c62828}
+#toast.toast-success{background:#2e7d32}
+
+@media print{
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  body > *{ display:none !important; }
+  body > #print-overlay{ display:block !important; }
+  #print-overlay{
+    position:fixed !important;top:0 !important;left:0 !important;
+    width:100% !important;height:100% !important;
+    background:white !important;z-index:9999 !important;padding:20px !important;
+  }
+  #toast{ display:none !important; }
+  .receipt{border:2px solid #C5973A !important;border-radius:12px;padding:24px;max-width:400px;margin:0 auto}
+  .receipt-header{text-align:center;border-bottom:1.5px dashed #C5973A !important;padding-bottom:14px;margin-bottom:14px}
+  .receipt-header h3{font-family:"Playfair Display",serif;font-size:1.4rem;color:#1B2B4B !important}
+  .receipt-row{display:flex;justify-content:space-between;padding:6px 0;font-size:.95rem;border-bottom:1px dotted #DDD5C8 !important}
+  .receipt-row.total{font-weight:700;color:#1B2B4B !important;border-bottom:none;padding-top:10px;border-top:2px solid #C5973A !important;margin-top:6px}
+  .badge{display:inline-block !important;padding:2px 8px;border-radius:10px;font-size:.95rem;font-weight:500}
+  .badge-green{background:#e8f5e9 !important;color:#2e7d32 !important}
+  .badge-yellow{background:#fff8e1 !important;color:#f57f17 !important}
+  .badge-red{background:#fdecea !important;color:#c62828 !important}
+  .divider{border:none;border-top:1.5px dashed #DDD5C8 !important;margin:14px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- PRINT OVERLAY -->
+<div id="print-overlay" style="display:none">
+  <div id="print-receipt-content"></div>
+</div>
+
+<!-- ===== SETUP SCREEN ===== -->
+<div id="setup-screen" class="setup-screen hidden">
+  <div class="setup-card">
+    <h2 id="setup-title">☁️ Konekte Firebase</h2>
+    <p class="subtitle" id="setup-sub">Ranpli konfigirasyon Firebase ou pou senkronize ant 2 aparèy</p>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Ale sou <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> — konekte ak Google</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">Klike <strong>"Add project"</strong> → Non: <code>gens-le-couturier</code> → Swiv etap yo</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Authentication</strong> → "Get started" → Aktive <strong>Email/Password</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>Firestore Database</strong> → "Create database" → <strong>"Start in test mode"</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text">Ikòn <strong>&lt;/&gt;</strong> → Kopi <strong>firebaseConfig</strong> ou a epi kole l anba</div>
+    </div>
+
+    <div style="margin-top:20px">
+      <div class="form-grid" style="grid-template-columns:1fr">
+        <div class="field"><label>API Key</label><input id="cfg-apiKey" placeholder="AIzaSy..."/></div>
+        <div class="field"><label>Project ID</label><input id="cfg-projectId" placeholder="gens-le-couturier"/></div>
+        <div class="field"><label>App ID</label><input id="cfg-appId" placeholder="1:123456:web:abc..."/></div>
+        <div class="field"><label>Messaging Sender ID <span style="font-weight:300;text-transform:none">(opsyonèl)</span></label><input id="cfg-senderId" placeholder="123456789"/></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <button class="btn btn-primary" onclick="connectFirebase()" id="btn-connect" style="flex:1">🔌 Konekte</button>
+        <button class="btn btn-outline" onclick="useLocal()" style="flex:1">📴 San Entènèt</button>
+      </div>
+      <p id="setup-error" style="color:#c62828;font-size:.92rem;margin-top:10px;text-align:center"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== AUTH SCREEN (Login / Register) ===== -->
+<div id="auth-screen" class="auth-screen hidden">
+  <div class="auth-left">
+
+    <div class="auth-brand">
+      <span class="scissors">✂️</span>
+      <h1>Gens Le<br/>Couturier</h1>
+      <p>Jesyon Mezu · Komand · Resi</p>
+    </div>
+
+    <div class="auth-form-box">
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login')" id="atab-login">🔑 Konekte</button>
+        <button class="auth-tab" onclick="switchAuthTab('register')" id="atab-register">📝 Enskri</button>
+      </div>
+
+      <div id="auth-message"></div>
+
+      <!-- LOGIN -->
+      <div id="auth-login">
+        <label class="auth-label" id="lbl-email">Imel</label>
+        <input class="auth-input" id="login-email" type="email" placeholder="exemple@email.com" onkeydown="if(event.key==='Enter')doLogin()"/>
+        <label class="auth-label" id="lbl-password">Modpas</label>
+        <input class="auth-input" id="login-password" type="password" placeholder="Modpas ou..." onkeydown="if(event.key==='Enter')doLogin()"/>
+        <button class="auth-btn-main" onclick="doLogin()" id="btn-login">🔑 Konekte</button>
+        <button class="auth-btn-sec" onclick="doForgotPassword()" id="btn-forgot">🔓 Bliye Modpas?</button>
+
+      </div>
+
+      <!-- ADMIN CONFIG BUTTON (sèlman admin wè l) -->
+      <div id="admin-config-btn" style="display:none;margin-top:14px;text-align:center">
+        <button class="auth-btn-sec" onclick="showSetupScreen()" style="font-size:.92rem;padding:8px 16px;border-color:#C5973A;color:#1B2B4B">
+          ⚙️ Konfigire Firebase (Admin)
+        </button>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="auth-register" class="hidden">
+        <label class="auth-label" id="lbl-email-reg">Imel</label>
+        <input class="auth-input" id="reg-email" type="email" placeholder="exemple@email.com"/>
+        <label class="auth-label" id="lbl-password-reg">Modpas <span id="lbl-password-hint" style="font-weight:400;font-size:.95rem;text-transform:none;letter-spacing:0">(6 karaktè min.)</span></label>
+        <input class="auth-input" id="reg-password" type="password" placeholder="Chwazi yon modpas solid" onkeydown="if(event.key==='Enter')doRegister()"/>
+        <label class="auth-label" id="lbl-confirm">Konfime Modpas</label>
+        <input class="auth-input" id="reg-confirm" type="password" placeholder="Repete modpas la" onkeydown="if(event.key==='Enter')doRegister()"/>
+        <button class="auth-btn-main" onclick="doRegister()" id="btn-register">📝 Kreye Kont</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ===== MAIN APP ===== -->
+<div id="main-app" class="hidden">
+<div class="app">
+  <div class="header">
+    <h1>✂️ Gens Le Couturier</h1>
+    <p id="app-subtitle">Jesyon Mezu, Komand ak Resi</p>
+    <div style="display:flex;justify-content:center;margin-top:10px">
+      <button id="lang-btn" onclick="cycleLang()" style="padding:5px 16px;border-radius:20px;border:1.5px solid #C5973A;background:transparent;font-size:.92rem;font-weight:700;cursor:pointer;color:#1B2B4B;letter-spacing:1px;transition:all .2s">🌐 HT</button>
+    </div>
+    <div class="sync-status no-print" id="sync-status">
+      <div class="dot dot-yellow" id="sync-dot"></div>
+      <span id="sync-text">Koneksyon...</span>
+    </div>
+    <div class="user-bar no-print" id="user-bar" style="display:none">
+      <span class="user-email" id="user-email-display">—</span>
+      <button id="btn-logout" class="btn btn-outline btn-sm" onclick="doLogout()" style="font-size:.95rem;padding:4px 12px">🚪 Dekonekte</button>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button id="btn-backup-lbl" class="btn btn-outline btn-sm no-print" onclick="exportData()" style="font-size:.95rem;padding:6px 14px">💾 Sove Backup</button>
+      <button id="btn-import-lbl" class="btn btn-outline btn-sm no-print" onclick="document.getElementById('import-file').click()" style="font-size:.95rem;padding:6px 14px">📂 Chaje Backup</button>
+      <button id="btn-change-config" class="btn btn-outline btn-sm no-print" onclick="changeConfig()" style="font-size:.95rem;padding:6px 14px">⚙️ Paramèt</button>
+      <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)"/>
+    </div>
+  </div>
+
+  <div class="tabs no-print">
+    <button id="tab-btn-clients" class="tab active" onclick="showTab('clients')">👤 Kliyan</button>
+    <button id="tab-btn-mezu" class="tab" onclick="showTab('mezu')">📏 Mezu</button>
+    <button id="tab-btn-komand" class="tab" onclick="showTab('komand')">📋 Komand</button>
+    <button id="tab-btn-resi" class="tab" onclick="showTab('resi')">🧾 Resi</button>
+  </div>
+
+  <!-- CLIENTS -->
+  <div id="tab-clients">
+    <div class="card hidden" id="client-form-card">
+      <h2 id="client-form-title">➕ Nouvo Kliyan</h2>
+      <div class="form-grid">
+        <div class="field"><label id="lbl-f-nom">Non Kliyan</label><input id="f-nom" placeholder="Ex: Marie Jean"/></div>
+        <div class="field"><label id="lbl-f-tel">Telefòn</label><input id="f-tel" placeholder="Ex: 509-XXXX-XXXX"/></div>
+        <div class="field"><label id="lbl-f-adres">Adres</label><input id="f-adres" placeholder="Ex: Pòtoprens"/></div>
+        <div class="field"><label id="lbl-f-notes">Nòt</label><textarea id="f-notes" placeholder="Nòt siplemantè..."></textarea></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="saveClient()" id="btn-save-client">💾 Sove</button>
+        <button class="btn btn-outline" onclick="newClient()">🆕 Nouvo</button>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+        <h2 id="client-list-title" style="margin:0">📋 Lis Kliyan (0)</h2>
+        <button class="btn btn-primary btn-sm" onclick="openNewClientForm()">➕ Nouvo Kliyan</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+        <input id="search-client" placeholder="🔍 Chache kliyan..." style="flex:1;min-width:150px;border:1.5px solid #DDD5C8;border-radius:8px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:.95rem;background:#F8F5F0;outline:none" oninput="renderClientList()"/>
+        <button class="btn btn-outline btn-sm hidden" id="btn-edit-client" onclick="openEditClientForm()" style="white-space:nowrap">✏️ Modifye</button>
+        <button class="btn btn-danger btn-sm hidden" id="btn-delete-client" onclick="deleteClient()" style="white-space:nowrap">🗑️ Efase</button>
+      </div>
+      <div class="client-list" id="client-list">
+        <div class="empty-state"><div class="icon">👤</div>Pa gen kliyan ankò.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEZU -->
+  <div id="tab-mezu" class="hidden">
+    <div id="mezu-no-client" class="card">
+      <div class="empty-state"><div class="icon">📏</div><span id="mezu-empty-txt">Chwazi yon kliyan pou wè mezu li.</span></div>
+    </div>
+    <div id="mezu-content" class="hidden">
+      <div class="card">
+        <h2><span id="mezu-title-lbl">📏 Mezu pou: </span><span id="mezu-client-name"></span></h2>
+        <p id="mezu-client-info" style="font-size:.92rem;color:#5C5470;margin-bottom:14px"></p>
+        <div id="mezu-view">
+          <div class="mezu-grid" id="mezu-display"></div>
+          <div style="margin-top:16px"><button id="btn-start-edit-mezu" class="btn btn-primary" onclick="startEditMezu()">✏️ Modifye Mezu</button></div>
+        </div>
+        <div id="mezu-edit" class="hidden">
+          <div class="form-grid" id="mezu-form-grid"></div>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="saveMezu()" id="btn-save-mezu">💾 Sove Mezu</button>
+            <button class="btn btn-outline" onclick="cancelEditMezu()">Anile</button>
+          </div>
+        </div>
+      </div>
+      <div id="mezu-orders-card" class="card hidden">
+        <h2><span id="mezu-orders-lbl">🧵 Komand Kliyan Sa</span> (<span id="mezu-orders-count">0</span>)</h2>
+        <div id="mezu-orders-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KOMAND -->
+  <div id="tab-komand" class="hidden">
+    <div class="card">
+      <h2 id="h2-new-order">🧵 Nouvo Komand</h2>
+      <div class="form-grid">
+        <div class="field"><label id="lbl-o-client">Kliyan</label><select id="o-client"></select></div>
+        <div class="field"><label id="lbl-o-service">Sèvis</label><select id="o-service"></select></div>
+        <div class="field"><label id="lbl-o-desc">Deskripsyon</label><input id="o-desc" placeholder="Detay rad la..."/></div>
+        <div class="field"><label id="lbl-o-tissu">Twal / Materyèl</label><input id="o-tissu" id="ph-o-tissu" placeholder="Ex: Chiffon blan"/></div>
+        <div class="field"><label id="lbl-o-ptissu">Pri Twal (HTG)</label><input id="o-ptissu" type="number" placeholder="0" oninput="updateTotal()"/></div>
+        <div class="field"><label id="lbl-o-pmain">Pri Travay (HTG)</label><input id="o-pmain" type="number" placeholder="0" oninput="updateTotal()"/></div>
+        <div class="field"><label id="lbl-o-avans">Avans Peye (HTG)</label><input id="o-avans" type="number" placeholder="0" oninput="updateTotal()"/></div>
+        <div class="field"><label id="lbl-o-dkomand">Dat Komand</label><input id="o-dkomand" type="date"/></div>
+        <div class="field"><label id="lbl-o-dliv">Dat Livrezon</label><input id="o-dliv" type="date"/></div>
+      </div>
+      <div id="order-total-preview" style="margin-bottom:12px;font-size:.9rem;color:#1B2B4B;font-weight:500">Total: 0 HTG | 0 HTG | Rès: <strong>0 HTG</strong></div>
+      <button class="btn btn-primary" onclick="saveOrder()" id="btn-save-order">➕ Anrejistre Komand</button>
+    </div>
+    <div class="card">
+      <h2 id="h2-all-orders">📋 Tout Komand (<span id="order-count">0</span>)</h2>
+      <div id="order-list"><div class="empty-state"><div class="icon">🧵</div>Pa gen komand ankò.</div></div>
+    </div>
+  </div>
+
+  <!-- RESI -->
+  <div id="tab-resi" class="hidden">
+    <div id="resi-pick" class="card">
+      <h2 id="h2-choose-order">🧾 Chwazi Komand</h2>
+      <div id="resi-list"><div class="empty-state"><div class="icon">🧾</div>Pa gen komand pou fè resi.</div></div>
+    </div>
+    <div id="resi-show" class="hidden">
+      <div class="no-print actions" style="margin-bottom:16px">
+        <button id="btn-back-receipt" class="btn btn-outline" onclick="closeReceipt()">← Retounen</button>
+        <button id="btn-print-receipt" class="btn btn-primary" onclick="printReceipt()">🖨️ Enprime / Sove PDF</button>
+        <button id="btn-whatsapp-receipt" class="btn btn-outline" onclick="shareWhatsApp()">📤 WhatsApp</button>
+      </div>
+      <div class="receipt" id="receipt-content"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+
+// =====================================================================
+//  SISTÈM LANG — FR / EN / HT
+// =====================================================================
+var LANG = localStorage.getItem('glc_lang') || 'ht';
+
+var T = {
+  fr: {
+    // Auth
+    login_tab:'🔑 Connexion', register_tab:'📝 Inscription',
+    email_lbl:'Email', password_lbl:'Mot de passe', confirm_lbl:'Confirmer le mot de passe',
+    password_hint:'(6 caractères min.)',
+    btn_login:'🔑 Connexion', btn_register:'📝 Créer un compte',
+    btn_forgot:'🔓 Mot de passe oublié?',
+    err_fill:'⚠️ Veuillez remplir tous les champs!',
+    err_short:'⚠️ Le mot de passe doit avoir au moins 6 caractères!',
+    err_match:'⚠️ Les mots de passe ne correspondent pas!',
+    err_no_firebase:'⚠️ Firebase non configuré.',
+    forgot_sent:'📧 Email de réinitialisation envoyé! Vérifiez votre boîte mail.',
+    // Setup
+    setup_title:'☁️ Configurer Firebase',
+    setup_sub:'Remplissez la configuration Firebase pour synchroniser vos données',
+    btn_connect:'🔌 Connecter', btn_local:'📴 Mode hors ligne',
+    // Main header
+    app_sub:'Gestion Mesures, Commandes et Reçus',
+    btn_backup:'💾 Sauvegarder', btn_import:'📂 Charger', btn_settings:'⚙️ Paramètres',
+    sync_ok:'✅ Synchronisé', sync_wait:'⏳ Connexion...', sync_local:'📴 Mode local', sync_err:'❌ Erreur connexion',
+    // Tabs
+    tab_clients:'👤 Clients', tab_mezu:'📏 Mesures', tab_komand:'📋 Commandes', tab_resi:'🧾 Reçus',
+    // Clients
+    new_client:'➕ Nouveau Client', edit_client:'✏️ Modifier Client',
+    lbl_nom:'Nom Client', lbl_tel:'Téléphone', lbl_adres:'Adresse', lbl_notes:'Notes',
+    ph_nom:'Ex: Marie Jean', ph_tel:'Ex: 509-XXXX-XXXX', ph_adres:'Ex: Port-au-Prince', ph_notes:'Notes supplémentaires...',
+    btn_save:'💾 Sauvegarder', btn_new:'🆕 Nouveau', btn_edit:'✏️ Modifier', btn_delete:'🗑️ Supprimer',
+    btn_add_client:'➕ Nouveau Client',
+    list_title:'📋 Liste Clients', search_ph:'🔍 Rechercher un client...',
+    detail_btn:'Détail →', empty_clients:'Aucun client. Ajoutez votre premier client!',
+    // Mezu
+    mezu_title:'📏 Mesures pour: ', mezu_edit:'✏️ Modifier Mesures', mezu_save:'💾 Sauvegarder',
+    mezu_cancel:'Annuler', mezu_empty:'Choisissez un client pour voir ses mesures.',
+    orders_client:'🧵 Commandes de ce client',
+    // Komand
+    new_order:'🧵 Nouvelle Commande', all_orders:'📋 Toutes les Commandes',
+    lbl_client:'Client', lbl_service:'Service', lbl_desc:'Description', lbl_tissu:'Tissu / Matériel',
+    lbl_ptissu:'Prix Tissu (HTG)', lbl_pmain:'Prix Travail (HTG)', lbl_avans:'Acompte (HTG)',
+    lbl_dkomand:'Date Commande', lbl_dliv:'Date Livraison',
+    btn_add_order:'➕ Enregistrer Commande',
+    status_wait:'En Attente', status_prog:"En Cours", status_done:'Livré',
+    empty_orders:'Aucune commande.',
+    // Resi
+    choose_order:'🧾 Choisir une Commande',
+    btn_print:'🖨️ Imprimer / PDF', btn_whatsapp:'📤 WhatsApp', btn_back:'← Retour',
+    empty_resi:'Aucune commande pour faire un reçu.',
+    // Toasts
+    toast_client_saved:'✅ Client sauvegardé!', toast_client_updated:'✅ Client modifié!',
+    toast_client_deleted:'✅ Client supprimé!', toast_mezu_saved:'✅ Mesures sauvegardées!',
+    toast_order_saved:'✅ Commande enregistrée!', toast_status_updated:'✅ Statut mis à jour!',
+    toast_order_deleted:'✅ Commande supprimée!', toast_backup:'✅ Sauvegarde effectuée!',
+    // Confirms
+    confirm_delete_client:'Supprimer ce client et toutes ses commandes? Action irréversible!',
+    confirm_delete_order:'Supprimer cette commande définitivement?',
+    confirm_import:'clients et commandes à charger. Les données existantes seront remplacées. Continuer?',
+    confirm_settings:'Changer la configuration Firebase? Vous serez déconnecté.',
+    // Receipt
+    receipt_title:'REÇU COMMANDE', receipt_client:'👤 Client', receipt_service:'🧵 Service',
+    receipt_detail:'📝 Détail', receipt_tissu:'🪡 Tissu', receipt_date:'📅 Date Commande',
+    receipt_delivery:'📦 Date Livraison', receipt_status:'📊 Statut',
+    receipt_price_tissu:'🪡 Prix Tissu', receipt_price_work:'✂️ Prix Travail',
+    receipt_total:'TOTAL', receipt_advance:'✅ Acompte Payé', receipt_balance:'💳 SOLDE RESTANT',
+    receipt_thanks:'Merci pour votre confiance!',
+    btn_back:'← Retour', btn_print:'🖨️ Imprimer / Sauvegarder PDF', btn_whatsapp:'📤 WhatsApp',
+    list_title:'📋 Liste Clients',
+    ph_desc:'Détails du vêtement...', ph_tissu:'Ex: Mousseline blanche',
+    lbl_total:'Total', lbl_res:'Reste',
+    lbl_o_client:'Client', lbl_o_service:'Service', lbl_o_desc:'Description', lbl_o_tissu:'Tissu / Matériel',
+    lbl_o_ptissu:'Prix Tissu (HTG)', lbl_o_pmain:'Prix Travail (HTG)', lbl_o_avans:'Acompte payé (HTG)',
+    lbl_o_dkomand:'Date Commande', lbl_o_dliv:'Date Livraison',
+    lbl_f_nom:'Nom Client', lbl_f_tel:'Téléphone', lbl_f_adres:'Adresse', lbl_f_notes:'Notes',
+    btn_start_edit_mezu:'✏️ Modifier Mesures', btn_save_order:'➕ Enregistrer Commande',
+    mezu_cancel:'Annuler',
+    logout:'🚪 Déconnexion',
+  },
+  en: {
+    login_tab:'🔑 Login', register_tab:'📝 Sign Up',
+    email_lbl:'Email', password_lbl:'Password', confirm_lbl:'Confirm Password',
+    password_hint:'(min. 6 characters)',
+    btn_login:'🔑 Login', btn_register:'📝 Create Account',
+    btn_forgot:'🔓 Forgot Password?',
+    err_fill:'⚠️ Please fill in all fields!',
+    err_short:'⚠️ Password must be at least 6 characters!',
+    err_match:'⚠️ Passwords do not match!',
+    err_no_firebase:'⚠️ Firebase not configured.',
+    forgot_sent:'📧 Password reset email sent! Check your inbox.',
+    setup_title:'☁️ Connect Firebase',
+    setup_sub:'Fill in Firebase configuration to sync your data',
+    btn_connect:'🔌 Connect', btn_local:'📴 Offline Mode',
+    app_sub:'Measurements, Orders & Receipts',
+    btn_backup:'💾 Backup', btn_import:'📂 Import', btn_settings:'⚙️ Settings',
+    sync_ok:'✅ Synced', sync_wait:'⏳ Connecting...', sync_local:'📴 Local Mode', sync_err:'❌ Connection Error',
+    tab_clients:'👤 Clients', tab_mezu:'📏 Measurements', tab_komand:'📋 Orders', tab_resi:'🧾 Receipts',
+    new_client:'➕ New Client', edit_client:'✏️ Edit Client',
+    lbl_nom:'Client Name', lbl_tel:'Phone', lbl_adres:'Address', lbl_notes:'Notes',
+    ph_nom:'Ex: Marie Jean', ph_tel:'Ex: 509-XXXX-XXXX', ph_adres:'Ex: Port-au-Prince', ph_notes:'Additional notes...',
+    btn_save:'💾 Save', btn_new:'🆕 New', btn_edit:'✏️ Edit', btn_delete:'🗑️ Delete',
+    btn_add_client:'➕ New Client',
+    list_title:'📋 Client List', search_ph:'🔍 Search client...',
+    detail_btn:'Details →', empty_clients:'No clients yet. Add your first client!',
+    mezu_title:'📏 Measurements for: ', mezu_edit:'✏️ Edit Measurements', mezu_save:'💾 Save',
+    mezu_cancel:'Cancel', mezu_empty:'Select a client to view measurements.',
+    orders_client:'🧵 Client Orders',
+    new_order:'🧵 New Order', all_orders:'📋 All Orders',
+    lbl_client:'Client', lbl_service:'Service', lbl_desc:'Description', lbl_tissu:'Fabric / Material',
+    lbl_ptissu:'Fabric Price (HTG)', lbl_pmain:'Labor Price (HTG)', lbl_avans:'Deposit (HTG)',
+    lbl_dkomand:'Order Date', lbl_dliv:'Delivery Date',
+    btn_add_order:'➕ Add Order',
+    status_wait:'Pending', status_prog:'In Progress', status_done:'Delivered',
+    empty_orders:'No orders yet.',
+    choose_order:'🧾 Choose Order',
+    btn_print:'🖨️ Print / PDF', btn_whatsapp:'📤 WhatsApp', btn_back:'← Back',
+    empty_resi:'No orders to generate receipts.',
+    toast_client_saved:'✅ Client saved!', toast_client_updated:'✅ Client updated!',
+    toast_client_deleted:'✅ Client deleted!', toast_mezu_saved:'✅ Measurements saved!',
+    toast_order_saved:'✅ Order saved!', toast_status_updated:'✅ Status updated!',
+    toast_order_deleted:'✅ Order deleted!', toast_backup:'✅ Backup saved!',
+    confirm_delete_client:'Delete this client and all their orders? This cannot be undone!',
+    confirm_delete_order:'Permanently delete this order?',
+    confirm_import:' clients and orders to load. Existing data will be replaced. Continue?',
+    confirm_settings:'Change Firebase configuration? You will be logged out.',
+    receipt_title:'ORDER RECEIPT', receipt_client:'👤 Client', receipt_service:'🧵 Service',
+    receipt_detail:'📝 Detail', receipt_tissu:'🪡 Fabric', receipt_date:'📅 Order Date',
+    receipt_delivery:'📦 Delivery Date', receipt_status:'📊 Status',
+    receipt_price_tissu:'🪡 Fabric Price', receipt_price_work:'✂️ Labor Price',
+    receipt_total:'TOTAL', receipt_advance:'✅ Deposit Paid', receipt_balance:'💳 REMAINING BALANCE',
+    receipt_thanks:'Thank you for your trust!',
+    btn_back:'← Back', btn_print:'🖨️ Print / Save PDF', btn_whatsapp:'📤 WhatsApp',
+    list_title:'📋 Client List',
+    ph_desc:'Garment details...', ph_tissu:'Ex: White chiffon',
+    lbl_total:'Total', lbl_res:'Balance',
+    lbl_o_client:'Client', lbl_o_service:'Service', lbl_o_desc:'Description', lbl_o_tissu:'Fabric / Material',
+    lbl_o_ptissu:'Fabric Price (HTG)', lbl_o_pmain:'Labor Price (HTG)', lbl_o_avans:'Deposit paid (HTG)',
+    lbl_o_dkomand:'Order Date', lbl_o_dliv:'Delivery Date',
+    lbl_f_nom:'Client Name', lbl_f_tel:'Phone', lbl_f_adres:'Address', lbl_f_notes:'Notes',
+    btn_start_edit_mezu:'✏️ Edit Measurements', btn_save_order:'➕ Add Order',
+    mezu_cancel:'Cancel',
+    logout:'🚪 Logout',
+  },
+  ht: {
+    login_tab:'🔑 Konekte', register_tab:'📝 Enskri',
+    email_lbl:'Imel', password_lbl:'Modpas', confirm_lbl:'Konfime Modpas',
+    password_hint:'(6 karaktè min.)',
+    btn_login:'🔑 Konekte', btn_register:'📝 Kreye Kont',
+    btn_forgot:'🔓 Bliye Modpas?',
+    err_fill:'⚠️ Ranpli tout chan yo!',
+    err_short:'⚠️ Modpas la dwe gen omwen 6 karaktè!',
+    err_match:'⚠️ Modpas yo pa matche!',
+    err_no_firebase:'⚠️ Firebase pa konfigire.',
+    forgot_sent:'📧 Nou voye yon imel reset ba ou! Verifye bwat imel ou.',
+    setup_title:'☁️ Konekte Firebase',
+    setup_sub:'Ranpli konfigirasyon Firebase pou senkronize done ou yo',
+    btn_connect:'🔌 Konekte', btn_local:'📴 San Entènèt',
+    app_sub:'Jesyon Mezu, Komand ak Resi',
+    btn_backup:'💾 Sove Backup', btn_import:'📂 Chaje', btn_settings:'⚙️ Paramèt',
+    sync_ok:'✅ Senkronize', sync_wait:'⏳ Koneksyon...', sync_local:'📴 Mod Lokal', sync_err:'❌ Erè koneksyon',
+    tab_clients:'👤 Kliyan', tab_mezu:'📏 Mezu', tab_komand:'📋 Komand', tab_resi:'🧾 Resi',
+    new_client:'➕ Nouvo Kliyan', edit_client:'✏️ Modifye Kliyan',
+    lbl_nom:'Non Kliyan', lbl_tel:'Telefòn', lbl_adres:'Adres', lbl_notes:'Nòt',
+    ph_nom:'Ex: Marie Jean', ph_tel:'Ex: 509-XXXX-XXXX', ph_adres:'Ex: Pòtoprens', ph_notes:'Nòt siplemantè...',
+    btn_save:'💾 Sove', btn_new:'🆕 Nouvo', btn_edit:'✏️ Modifye', btn_delete:'🗑️ Efase',
+    btn_add_client:'➕ Nouvo Kliyan',
+    list_title:'📋 Lis Kliyan', search_ph:'🔍 Chache kliyan...',
+    detail_btn:'Detay →', empty_clients:'Pa gen kliyan ankò. Ajoute premye kliyan ou!',
+    mezu_title:'📏 Mezu pou: ', mezu_edit:'✏️ Modifye Mezu', mezu_save:'💾 Sove',
+    mezu_cancel:'Anile', mezu_empty:'Chwazi yon kliyan pou wè mezu li.',
+    orders_client:'🧵 Komand Kliyan Sa',
+    new_order:'🧵 Nouvo Komand', all_orders:'📋 Tout Komand',
+    lbl_client:'Kliyan', lbl_service:'Sèvis', lbl_desc:'Deskripsyon', lbl_tissu:'Twal / Materyèl',
+    lbl_ptissu:'Pri Twal (HTG)', lbl_pmain:'Pri Travay (HTG)', lbl_avans:'Avans Peye (HTG)',
+    lbl_dkomand:'Dat Komand', lbl_dliv:'Dat Livrezon',
+    btn_add_order:'➕ Anrejistre Komand',
+    status_wait:'An Atant', status_prog:'An Pwogrè', status_done:'Livré',
+    empty_orders:'Pa gen komand ankò.',
+    choose_order:'🧾 Chwazi Komand',
+    btn_print:'🖨️ Enprime / PDF', btn_whatsapp:'📤 WhatsApp', btn_back:'← Retounen',
+    empty_resi:'Pa gen komand pou fè resi.',
+    toast_client_saved:'✅ Kliyan sove!', toast_client_updated:'✅ Kliyan modifye!',
+    toast_client_deleted:'✅ Kliyan efase!', toast_mezu_saved:'✅ Mezu sove!',
+    toast_order_saved:'✅ Komand anrejistre!', toast_status_updated:'✅ Estati mete ajou!',
+    toast_order_deleted:'✅ Komand efase!', toast_backup:'✅ Backup sove!',
+    confirm_delete_client:'Efase kliyan sa ak tout komand li? Sa se pèmanan!',
+    confirm_delete_order:'Efase komand sa a pèmananman?',
+    confirm_import:' kliyan ak komand pou chaje. Done ki deja la ap ranplase. Kontinye?',
+    confirm_settings:'Chanje konfigirasyon Firebase? Ou ap dekonekte.',
+    receipt_title:'RESI KOMAND', receipt_client:'👤 Kliyan', receipt_service:'🧵 Sèvis',
+    receipt_detail:'📝 Detay', receipt_tissu:'🪡 Twal', receipt_date:'📅 Dat Komand',
+    receipt_delivery:'📦 Dat Livrezon', receipt_status:'📊 Estati',
+    receipt_price_tissu:'🪡 Pri Twal', receipt_price_work:'✂️ Pri Travay',
+    receipt_total:'TOTAL', receipt_advance:'✅ Avans Peye', receipt_balance:'💳 BALANS RES',
+    receipt_thanks:'Mèsi pou konfyans ou!',
+    btn_back:'← Retounen', btn_print:'🖨️ Enprime / Sove PDF', btn_whatsapp:'📤 WhatsApp',
+    list_title:'📋 Lis Kliyan',
+    ph_desc:'Detay rad la...', ph_tissu:'Ex: Chiffon blan',
+    lbl_total:'Total', lbl_res:'Rès',
+    lbl_o_client:'Kliyan', lbl_o_service:'Sèvis', lbl_o_desc:'Deskripsyon', lbl_o_tissu:'Twal / Materyèl',
+    lbl_o_ptissu:'Pri Twal (HTG)', lbl_o_pmain:'Pri Travay (HTG)', lbl_o_avans:'Avans Peye (HTG)',
+    lbl_o_dkomand:'Dat Komand', lbl_o_dliv:'Dat Livrezon',
+    lbl_f_nom:'Non Kliyan', lbl_f_tel:'Telefòn', lbl_f_adres:'Adres', lbl_f_notes:'Nòt',
+    btn_start_edit_mezu:'✏️ Modifye Mezu', btn_save_order:'➕ Anrejistre Komand',
+    mezu_cancel:'Anile',
+    logout:'🚪 Dekonekte',
+  }
+};
+
+function t(key){ return (T[LANG]&&T[LANG][key]) || (T['ht'][key]) || key; }
+
+function cycleLang(){
+  var langs=['ht','fr','en'];
+  var idx=langs.indexOf(LANG);
+  LANG=langs[(idx+1)%langs.length];
+  localStorage.setItem('glc_lang',LANG);
+  updateLangBtn();
+  applyLang();
+}
+
+function setLang(l){
+  LANG=l;
+  localStorage.setItem('glc_lang',l);
+  updateLangBtn();
+  applyLang();
+}
+
+function updateLangBtn(){
+  var btn=document.getElementById('lang-btn');
+  if(btn){
+    var labels={ht:'🌐 HT', fr:'🌐 FR', en:'🌐 EN'};
+    btn.textContent=labels[LANG]||'🌐 HT';
+  }
+  // Retire kòd ki te pou 3 bouton separe
+  ['fr','en','ht'].forEach(function(l){
+    var b=document.getElementById('lang-'+l);
+    if(b){b.style.background=LANG===l?'#1B2B4B':'transparent';b.style.color=LANG===l?'#F8F5F0':'#1B2B4B';}
+  });
+}
+
+function applyLang(){
+  // --- Bouton lang ---
+  updateLangBtn();
+
+  // --- Auth screen ---
+  function setEl(id, val){ var e=document.getElementById(id); if(e) e.textContent=val; }
+  function setPh(id, val){ var e=document.getElementById(id); if(e) e.placeholder=val; }
+
+  setEl('atab-login',    t('login_tab'));
+  setEl('atab-register', t('register_tab'));
+  setEl('btn-login',     t('btn_login'));
+  setEl('btn-register',  t('btn_register'));
+  setEl('btn-forgot',    t('btn_forgot'));
+  setEl('lbl-email',     t('email_lbl'));
+  setEl('lbl-password',  t('password_lbl'));
+  setEl('lbl-confirm',   t('confirm_lbl'));
+
+  // --- Setup ---
+  setEl('setup-title',   t('setup_title'));
+  setEl('setup-sub',     t('setup_sub'));
+  setEl('btn-connect',   t('btn_connect'));
+
+  // --- Main app header ---
+  setEl('app-subtitle',      t('app_sub'));
+  setEl('btn-backup-lbl',    t('btn_backup'));
+  setEl('btn-import-lbl',    t('btn_import'));
+  setEl('btn-change-config', t('btn_settings'));
+  setEl('btn-logout',        t('logout'));
+
+  // --- Tabs ---
+  setEl('tab-btn-clients', t('tab_clients'));
+  setEl('tab-btn-mezu',    t('tab_mezu'));
+  setEl('tab-btn-komand',  t('tab_komand'));
+  setEl('tab-btn-resi',    t('tab_resi'));
+
+  // --- Placeholders ---
+  setPh('f-nom',         t('ph_nom'));
+  setPh('f-tel',         t('ph_tel'));
+  setPh('f-adres',       t('ph_adres'));
+  setPh('f-notes',       t('ph_notes'));
+  setPh('search-client', t('search_ph'));
+
+  // --- Seksyon dinamik ---
+  setEl('mezu-title-lbl',   t('mezu_title'));
+  setEl('mezu-orders-lbl',  t('orders_client'));
+  setEl('h2-new-order',     t('new_order'));
+  setEl('h2-choose-order',  t('choose_order'));
+  setEl('mezu-empty-txt',   t('mezu_empty'));
+  setEl('btn-edit-client',  t('btn_edit'));
+  setEl('btn-delete-client',t('btn_delete'));
+  setEl('btn-save-client',  t('btn_save'));
+  setEl('btn-save-mezu',      t('mezu_save'));
+  setEl('btn-back-receipt',    t('btn_back'));
+  setEl('btn-print-receipt',   t('btn_print'));
+  setEl('btn-whatsapp-receipt',t('btn_whatsapp'));
+  // Fòm kliyan labels
+  setEl('lbl-f-nom',   t('lbl_f_nom'));
+  setEl('lbl-f-tel',   t('lbl_f_tel'));
+  setEl('lbl-f-adres', t('lbl_f_adres'));
+  setEl('lbl-f-notes', t('lbl_f_notes'));
+  // Fòm komand labels
+  setEl('lbl-o-client',  t('lbl_o_client'));
+  setEl('lbl-o-service', t('lbl_o_service'));
+  setEl('lbl-o-desc',    t('lbl_o_desc'));
+  setEl('lbl-o-tissu',   t('lbl_o_tissu'));
+  setEl('lbl-o-ptissu',  t('lbl_o_ptissu'));
+  setEl('lbl-o-pmain',   t('lbl_o_pmain'));
+  setEl('lbl-o-avans',   t('lbl_o_avans'));
+  setEl('lbl-o-dkomand', t('lbl_o_dkomand'));
+  setEl('lbl-o-dliv',    t('lbl_o_dliv'));
+  // Bouton mezu ak komand
+  setEl('btn-start-edit-mezu', t('btn_start_edit_mezu'));
+  setEl('btn-save-order',      t('btn_save_order'));
+  // Placeholders komand
+  setPh('o-desc',  t('ph_desc'));
+  setPh('ph-o-tissu', t('ph_tissu'));
+
+  // --- Re-render done dinamik ---
+  if(typeof clients !== 'undefined'){
+    renderClientList();
+    renderOrderForm();
+    renderOrderList();
+    renderResiList();
+    if(selectedClientId) renderMezu();
+    updateTotal();
+  }
+
+  // --- Sync status ---
+  setSyncStatus(lastSyncStatus||'connecting');
+}
+var lastSyncStatus='connecting';
+
+// =====================================================================
+//  KONSTANT
+// =====================================================================
+const MEZU_FIELDS=[
+  {key:"epaul",     label:"EPAUL"},
+  {key:"manche",    label:"MANCHE"},
+  {key:"long",      label:"LONG"},
+  {key:"poitrine",  label:"POITRINE"},
+  {key:"carru_dos", label:"CARRU DOS"},
+  {key:"haut_sein", label:"HAUTEUR SEIN"},
+  {key:"haut_taille",label:"HAUTEUR TAILLE"},
+  {key:"haut_hanche",label:"HAUTEUR HANCHE"},
+  {key:"haut_taille_dos",label:"HAUTEUR TAILLE DOS"},
+  {key:"ceinture",  label:"CEINTURE"},
+  {key:"haut_genou",label:"HAUTEUR GENOUX"},
+  {key:"larg_genou",label:"LARG GENOUX"},
+  {key:"long_pant", label:"LONG PANT"},
+  {key:"long_jupe", label:"LONG JUPE"},
+  {key:"ecart_sein",label:"ECART SEIN"}
+];
+function getServices(){
+  if(LANG==='fr') return ["Robe Dame","Costume Homme","Retouche","Robe Mariée","Uniforme","Pantalon","Chemise","Jupe","Costume Traditionnel","Autre"];
+  if(LANG==='en') return ["Lady Dress","Men Suit","Alteration","Wedding Dress","Uniform","Pants","Shirt","Skirt","Traditional Costume","Other"];
+  return ["Koud Rad Dam","Koud Kostim Gason","Retouche","Koud Wòb Marye","Koud Inifòm","Koud Pantalon","Koud Chemiz","Koud Jip","Koud Kostim Tradisyonèl","Lòt"];
+}
+
+const ADMIN_EMAIL='gensboul@gmail.com';
+const genId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const today=()=>new Date().toISOString().split('T')[0];
+
+// =====================================================================
+//  ETAT GLOBAL
+// =====================================================================
+let clients=[], orders=[], selectedClientId=null;
+let db=null, auth=null, useFirebase=false, currentUser=null;
+let currentReceiptOrder=null;
+
+// =====================================================================
+//  TOAST
+// =====================================================================
+function showToast(msg, type='success', duration=3000){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='show '+(type==='error'?'toast-error':type==='success'?'toast-success':'');
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.classList.remove('show'),duration);
+}
+
+// =====================================================================
+//  SPINNER
+// =====================================================================
+function setLoading(btnId, loading, defaultText){
+  const btn=document.getElementById(btnId);
+  if(!btn) return;
+  btn.disabled=loading;
+  btn.innerHTML=loading?`<span class="spinner"></span>Ap tann...`:defaultText;
+}
+
+// =====================================================================
+//  INIT
+// =====================================================================
+function init(){
+  var cfg=JSON.parse(localStorage.getItem('glc_firebase_cfg')||'null');
+  if(cfg && cfg.apiKey){
+    // Firebase deja konfigire — ale dirèkteman nan auth
+    initFirebase(cfg);
+  } else {
+    // Pa gen config — toujou montre setup-screen pou antre konfigirasyon
+    document.getElementById('setup-screen').classList.remove('hidden');
+  }
+}
+
+// =====================================================================
+//  FIREBASE SETUP
+// =====================================================================
+function connectFirebase(){
+  const apiKey=document.getElementById('cfg-apiKey').value.trim();
+  const projectId=document.getElementById('cfg-projectId').value.trim();
+  const appId=document.getElementById('cfg-appId').value.trim();
+  const senderId=document.getElementById('cfg-senderId').value.trim();
+
+  if(!apiKey||!projectId||!appId){
+    document.getElementById('setup-error').textContent='⚠️ Tanpri ranpli: API Key, Project ID, App ID!';
+    return;
+  }
+  const cfg={
+    apiKey, projectId, appId,
+    authDomain: projectId+'.firebaseapp.com',
+    storageBucket: projectId+'.appspot.com',
+    messagingSenderId: senderId||''
+  };
+  localStorage.setItem('glc_firebase_cfg',JSON.stringify(cfg));
+  localStorage.removeItem('glc_local_mode');
+  setLoading('btn-connect',true,'');
+  initFirebase(cfg);
+}
+
+function initFirebase(cfg){
+  try{
+    if(!firebase.apps || !firebase.apps.length) firebase.initializeApp(cfg);
+    db=firebase.firestore();
+    auth=firebase.auth();
+    useFirebase=true;
+    document.getElementById('setup-screen').classList.add('hidden');
+    localStorage.setItem('glc_firebase_cfg', JSON.stringify(cfg));
+
+    // Ekri auth — dirèkteman antre apre login/enskri
+    auth.onAuthStateChanged(user=>{
+      if(user){
+        currentUser=user;
+        showMainApp();
+      } else {
+        currentUser=null;
+        showAuthScreen();
+      }
+    });
+  } catch(e){
+    document.getElementById('setup-error').textContent='❌ Erè Firebase: '+e.message;
+    setLoading('btn-connect',false,'🔌 Konekte');
+    document.getElementById('setup-screen').classList.remove('hidden');
+  }
+}
+
+// =====================================================================
+//  AUTH SCREEN
+// =====================================================================
+function showAuthScreen(){
+  document.getElementById('setup-screen').classList.add('hidden');
+  document.getElementById('auth-screen').classList.remove('hidden');
+  document.getElementById('main-app').classList.add('hidden');
+}
+
+function switchAuthTab(tab){
+  ['login','register'].forEach(t=>{
+    document.getElementById('auth-'+t).classList.toggle('hidden', t!==tab);
+    document.getElementById('atab-'+t).classList.toggle('active', t===tab);
+  });
+  document.getElementById('auth-message').innerHTML='';
+}
+
+function showAuthMsg(msg, isError=false){
+  const el=document.getElementById('auth-message');
+  el.innerHTML=`<div class="${isError?'auth-error':'auth-success'}">${msg}</div>`;
+}
+
+// LOGIN
+async function doLogin(){
+  var email=document.getElementById('login-email').value.trim();
+  var password=document.getElementById('login-password').value;
+  if(!email||!password){showAuthMsg('⚠️ Antre imel ak modpas ou!',true);return;}
+  if(!auth){
+    showAuthMsg('⚠️ Firebase pa konfigire. Ou bezwen mete app la sou yon sèvè web (pa content:// oswa file://).', true);
+    return;
+  }
+  setLoading('btn-login',true,'');
+  try{
+    await auth.signInWithEmailAndPassword(email, password);
+  } catch(e){
+    showAuthMsg('❌ '+translateAuthError(e.code), true);
+    setLoading('btn-login',false,'🔑 Konekte');
+  }
+}
+
+// REGISTER
+async function doRegister(){
+  var email=document.getElementById('reg-email').value.trim();
+  var password=document.getElementById('reg-password').value;
+  var confirm=document.getElementById('reg-confirm').value;
+
+  if(!email||!password){showAuthMsg('⚠️ Ranpli tout chan yo!',true);return;}
+  if(password.length<6){showAuthMsg('⚠️ Modpas la dwe gen omwen 6 karaktè!',true);return;}
+  if(password!==confirm){showAuthMsg('⚠️ Modpas yo pa matche!',true);return;}
+  if(!auth){
+    showAuthMsg('⚠️ Firebase pa konfigire. Ou bezwen mete app la sou yon sèvè web (pa content:// oswa file://).', true);
+    return;
+  }
+  setLoading('btn-register',true,'');
+  try{
+    await auth.createUserWithEmailAndPassword(email, password);
+  } catch(e){
+    showAuthMsg('❌ '+translateAuthError(e.code), true);
+    setLoading('btn-register',false,'📝 Kreye Kont');
+  }
+}
+
+// LOGOUT
+async function doLogout(){
+  if(!confirm('Ou vle dekonekte?')) return;
+  try{
+    await auth.signOut();
+    showToast('✅ Ou dekonekte avèk siksè');
+  } catch(e){
+    showToast('❌ Erè dekoneksyon: '+e.message, 'error');
+  }
+}
+
+
+
+function showSetupScreen(){
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('setup-screen').classList.remove('hidden');
+}
+
+async function doForgotPassword(){
+  var email=document.getElementById('login-email').value.trim();
+  if(!email){
+    showAuthMsg('⚠️ Antre imel ou anvan epi klike "Bliye Modpas".', true);
+    return;
+  }
+  if(!auth){
+    showAuthMsg('⚠️ Firebase pa konfigire.', true);
+    return;
+  }
+  setLoading('btn-forgot', true, '');
+  try{
+    await auth.sendPasswordResetEmail(email);
+    showAuthMsg('📧 Nou voye yon imel reset modpas ba ou! Verifye bwat imel ou.', false);
+  } catch(e){
+    showAuthMsg('❌ '+translateAuthError(e.code), true);
+  }
+  setLoading('btn-forgot', false, '🔑 Bliye Modpas?');
+}
+
+// Tradwi erè Firebase Auth an Kreyòl
+function translateAuthError(code){
+  if(!code) return 'Pa gen koneksyon Firebase. Verifye konfigirasyon an.';
+  var errors={
+    'auth/invalid-email':'Imel la pa valid.',
+    'auth/user-not-found':'Pa gen kont ak imel sa a.',
+    'auth/wrong-password':'Modpas la pa kòrèk.',
+    'auth/email-already-in-use':'Imel sa a deja itilize.',
+    'auth/weak-password':'Modpas la twò fèb. Mete omwen 6 karaktè.',
+    'auth/too-many-requests':'Twòp tantativ. Eseye ankò pita.',
+    'auth/network-request-failed':'Pa gen entènèt. Verifye koneksyon ou.',
+    'auth/invalid-credential':'Imel oswa modpas la pa kòrèk.',
+    'auth/operation-not-allowed':'Operasyon sa pa otorize.',
+    'auth/internal-error':'Erè entèn Firebase. Eseye ankò.',
+    'auth/app-not-authorized':'App la pa otorize. Verifye konfigirasyon Firebase.',
+    'auth/configuration-not-found':'Konfigirasyon Firebase pa jwenn. Klike ⚙️ Konfigire Firebase.',
+    'auth/password-does-not-meet-requirements':'Modpas la pa ase solid. Li dwe gen: lèt majiskil (A-Z), lèt miniskil (a-z), yon chif (0-9), ak yon karaktè espesyal (!@#$%...).'
+  };
+  return errors[code]||'Erè: '+code;
+}
+
+// =====================================================================
+//  LOCAL MODE
+// =====================================================================
+function useLocal(){
+  // Dezaktive pou lòt itilizatè — sèlman Firebase
+  showAuthMsg('⚠️ Ou dwe konekte ak yon kont pou itilize app la.', true);
+}
+
+function startLocalMode(){
+  // Dezaktive — pa itilize ankò
+}
+
+function showMainApp(){
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('main-app').classList.remove('hidden');
+
+  if(currentUser){
+    const bar=document.getElementById('user-bar');
+    bar.style.display='flex';
+    document.getElementById('user-email-display').textContent='👤 '+currentUser.email;
+
+    // Bouton Paramèt (⚙️) — sèlman admin ka wè l
+    const cfgBtn=document.getElementById('btn-change-config');
+    if(cfgBtn) cfgBtn.style.display=(currentUser.email===ADMIN_EMAIL)?'':'none';
+  }
+
+  setSyncStatus('connecting');
+  startListeners();
+  setTimeout(applyLang, 200);
+}
+
+function changeConfig(){
+  if(!currentUser || currentUser.email !== ADMIN_EMAIL){
+    showToast('⛔ Sèlman admin ka chanje konfigirasyon an.','error');
+    return;
+  }
+  if(!confirm('Ou vle chanje konfigirasyon Firebase ou? Ou ap dekonekte.')) return;
+  if(auth) auth.signOut().catch(()=>{});
+  localStorage.removeItem('glc_firebase_cfg');
+  localStorage.removeItem('glc_local_mode');
+  location.reload();
+}
+
+// =====================================================================
+//  FIRESTORE LISTENERS
+// =====================================================================
+function startListeners(){
+  // Chak itilizatè gen DB pa yo — toujou filtre pa uid
+  const uid=currentUser.uid;
+
+  // DB pèsonèl: chak itilizatè wè sèlman done li yo
+  // Retire orderBy pou evite pwoblèm index Firestore — tri fèt nan JS
+  const clientQuery=db.collection('clients').where('uid','==',uid);
+  const orderQuery=db.collection('orders').where('uid','==',uid);
+
+
+  clientQuery.onSnapshot(snap=>{
+    clients=snap.docs.map(d=>({id:d.id,...d.data()}));
+    // Tri pa dat desandan nan JS
+    clients.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+    setSyncStatus('online');
+    renderAll();
+  }, err=>{
+    setSyncStatus('error');
+    showToast('❌ Erè chajman kliyan: '+err.message,'error');
+    console.error('Clients listener error:',err);
+  });
+
+  orderQuery.onSnapshot(snap=>{
+    orders=snap.docs.map(d=>({id:d.id,...d.data()}));
+    // Tri pa dat desandan nan JS
+    orders.sort((a,b)=>new Date(b.dateCreation||0)-new Date(a.dateCreation||0));
+    renderAll();
+  }, err=>{
+    showToast('❌ Erè chajman komand: '+err.message,'error');
+    console.error('Orders listener error:',err);
+  });
+}
+
+function setSyncStatus(s){
+  lastSyncStatus=s;
+  const dot=document.getElementById('sync-dot');
+  const txt=document.getElementById('sync-text');
+  if(!dot) return;
+  dot.className='dot';
+  if(s==='online'){dot.classList.add('dot-green');txt.textContent=t('sync_ok');}
+  else if(s==='connecting'){dot.classList.add('dot-yellow');txt.textContent=t('sync_wait');}
+  else if(s==='local'){dot.classList.add('dot-red');txt.textContent=t('sync_local');}
+  else{dot.classList.add('dot-red');txt.textContent=t('sync_err');}
+  // Mete ajou bouton lang aktif
+  ['fr','en','ht'].forEach(function(l){
+    var btn=document.getElementById('lang-'+l);
+    if(btn){
+      btn.style.background=LANG===l?'#1B2B4B':'transparent';
+      btn.style.color=LANG===l?'#F8F5F0':'#1B2B4B';
+    }
+  });
+}
+
+function saveLocal(){
+  if(!useFirebase){
+    localStorage.setItem('glc_clients',JSON.stringify(clients));
+    localStorage.setItem('glc_orders',JSON.stringify(orders));
+  }
+}
+
+// =====================================================================
+//  KLIYAN
+// =====================================================================
+function renderAll(){
+  // Mete ajou tèks estatik HTML
+  var mezu_empty=document.getElementById('mezu-empty-txt');
+  if(mezu_empty) mezu_empty.textContent=t('mezu_empty');
+  var cl_title=document.getElementById('client-list-title');
+  if(cl_title) cl_title.textContent=t('list_title')+' ('+clients.length+')';
+  // Form titles
+  var cft=document.getElementById('client-form-title');
+  if(cft && cft.textContent.indexOf('➕')>=0) cft.textContent=t('new_client');
+  // Bouton add client
+  var badd=document.querySelector('[onclick="openNewClientForm()"]');
+  if(badd) badd.textContent=t('btn_add_client');
+  // Edit/delete bouton
+  var bedit=document.getElementById('btn-edit-client');
+  if(bedit) bedit.textContent=t('btn_edit');
+  var bdel=document.getElementById('btn-delete-client');
+  if(bdel) bdel.textContent=t('btn_delete');
+  // Mezu buttons
+  var bsavemezu=document.getElementById('btn-save-mezu');
+  if(bsavemezu) bsavemezu.textContent=t('mezu_save');
+  var bsavecli=document.getElementById('btn-save-client');
+  if(bsavecli) bsavecli.textContent=t('btn_save');
+  // Order count
+  var oc=document.getElementById('order-count');
+  if(oc) oc.textContent=orders.length;
+  // Mete ajou h2-all-orders ak bon kont
+  var h2all=document.getElementById('h2-all-orders');
+  if(h2all) h2all.textContent=t('all_orders')+' ('+orders.length+')';
+  renderClientList();
+  renderOrderForm();
+  renderOrderList();
+  renderResiList();
+  if(selectedClientId) renderMezu();
+}
+
+function renderClientList(){
+  const el=document.getElementById('client-list');
+  const search=(document.getElementById('search-client')?.value||'').toLowerCase();
+  const filtered=clients.filter(c=>
+    c.nom?.toLowerCase().includes(search)||
+    c.tel?.toLowerCase().includes(search)||
+    c.adres?.toLowerCase().includes(search)
+  );
+  document.getElementById('client-list-title').textContent=t('list_title')+' ('+clients.length+')';
+  if(!filtered.length){
+    el.innerHTML='<div class="empty-state"><div class="icon">👤</div>'+(search?'Pa gen rezilta pou "'+search+'"':t('empty_clients'))+'</div>';
+    return;
+  }
+  el.innerHTML=filtered.map(c=>`
+    <div class="client-item${selectedClientId===c.id?' selected':''}" onclick="selectClient('${c.id}')">
+      <div class="client-info" style="flex:1">
+        <strong>${c.nom}</strong>
+        <span>📞 ${c.tel||'—'} | 📍 ${c.adres||'—'}</span>
+      </div>
+      <span class="badge badge-yellow" onclick="event.stopPropagation();goToClientDetails('${c.id}')" style="cursor:pointer;white-space:nowrap">${t('detail_btn')}</span>
+    </div>`).join('');
+}
+
+function newClient(){
+  openNewClientForm();
+}
+
+async function saveClient(){
+  const nom=document.getElementById('f-nom').value.trim();
+  if(!nom){showToast('⚠️ Mete non kliyan an!','error');return;}
+
+  const data={
+    nom,
+    tel:document.getElementById('f-tel').value.trim(),
+    adres:document.getElementById('f-adres').value.trim(),
+    notes:document.getElementById('f-notes').value.trim(),
+    date:today()
+  };
+  if(currentUser) data.uid=currentUser.uid;
+
+  setLoading('btn-save-client',true,'');
+  try{
+    if(useFirebase){
+      if(selectedClientId){
+        // Pa mete uid nan update — li deja la nan dokiman an
+        await db.collection('clients').doc(selectedClientId).update(data);
+        showToast(t('toast_client_updated'));
+        document.getElementById('client-form-card').classList.add('hidden');
+      } else {
+        if(currentUser) data.uid=currentUser.uid;
+        const ref=await db.collection('clients').add({...data,mezu:{}});
+        selectedClientId=ref.id;
+        showToast(t('toast_client_saved'));
+        document.getElementById('client-form-card').classList.add('hidden');
+      }
+    } else {
+      if(selectedClientId){
+        clients=clients.map(c=>c.id===selectedClientId?{...c,...data}:c);
+      } else {
+        const nc={id:genId(),...data,mezu:{}};
+        clients.unshift(nc);
+        selectedClientId=nc.id;
+      }
+      saveLocal();
+      renderClientList();
+      showToast('✅ Kliyan sove!');
+    }
+    document.getElementById('client-form-title').textContent='✏️ Modifye Kliyan';
+    document.getElementById('btn-delete-client').classList.remove('hidden');
+  } catch(e){
+    showToast('❌ Erè: '+e.message,'error');
+    console.error('saveClient error:',e);
+  }
+  setLoading('btn-save-client',false,'💾 Sove Kliyan');
+}
+
+async function deleteClient(){
+  if(!selectedClientId){return;}
+  const c=clients.find(x=>x.id===selectedClientId);
+  const relatedOrders=orders.filter(o=>o.clientId===selectedClientId);
+  const msg=relatedOrders.length
+    ?`Ou pral efase "${c.nom}" ak ${relatedOrders.length} komand li yo. Sa se pèmanan!`
+    :`Ou pral efase kliyan "${c.nom}". Sa se pèmanan!`;
+  if(!confirm(msg)) return;
+
+  try{
+    if(useFirebase){
+      const batch=db.batch();
+      // Efase komand yo tou
+      relatedOrders.forEach(o=>{
+        batch.delete(db.collection('orders').doc(o.id));
+      });
+      batch.delete(db.collection('clients').doc(selectedClientId));
+      await batch.commit();
+    } else {
+      orders=orders.filter(o=>o.clientId!==selectedClientId);
+      clients=clients.filter(c=>c.id!==selectedClientId);
+      saveLocal();
+      renderAll();
+    }
+    selectedClientId=null;
+    newClient();
+    showToast(t('toast_client_deleted'));
+  } catch(e){
+    showToast('❌ Erè efasman: '+e.message+' — Verifye Firestore Rules ou.','error');
+    console.error('deleteClient error:',e);
+  }
+}
+
+function selectClient(id){
+  selectedClientId=id;
+  // Montre bouton aksyon yo
+  document.getElementById('btn-delete-client').classList.remove('hidden');
+  document.getElementById('btn-edit-client').classList.remove('hidden');
+  // Kache fòm si li te ouvè
+  document.getElementById('client-form-card').classList.add('hidden');
+  renderClientList();
+}
+
+function openEditClientForm(){
+  if(!selectedClientId) return;
+  const c=clients.find(x=>x.id===selectedClientId);
+  document.getElementById('f-nom').value=c.nom||'';
+  document.getElementById('f-tel').value=c.tel||'';
+  document.getElementById('f-adres').value=c.adres||'';
+  document.getElementById('f-notes').value=c.notes||'';
+  document.getElementById('client-form-title').textContent='✏️ Modifye Kliyan';
+  document.getElementById('client-form-card').classList.remove('hidden');
+  // Scroll anlè fòm lan
+  document.getElementById('client-form-card').scrollIntoView({behavior:'smooth'});
+}
+
+function openNewClientForm(){
+  selectedClientId=null;
+  ['nom','tel','adres','notes'].forEach(k=>document.getElementById('f-'+k).value='');
+  document.getElementById('client-form-title').textContent='➕ Nouvo Kliyan';
+  document.getElementById('btn-delete-client').classList.add('hidden');
+  document.getElementById('btn-edit-client').classList.add('hidden');
+  document.getElementById('client-form-card').classList.remove('hidden');
+  document.getElementById('client-form-card').scrollIntoView({behavior:'smooth'});
+  renderClientList();
+}
+
+function goToClientDetails(id){
+  selectClient(id);
+  renderMezu();
+  showTab('mezu');
+}
+
+// =====================================================================
+//  MEZU
+// =====================================================================
+function renderMezu(){
+  if(!selectedClientId){
+    document.getElementById('mezu-no-client').classList.remove('hidden');
+    document.getElementById('mezu-content').classList.add('hidden');
+    return;
+  }
+  const c=clients.find(x=>x.id===selectedClientId);
+  if(!c) return;
+  document.getElementById('mezu-no-client').classList.add('hidden');
+  document.getElementById('mezu-content').classList.remove('hidden');
+  document.getElementById('mezu-client-name').textContent=c.nom;
+  document.getElementById('mezu-client-info').textContent=`📞 ${c.tel||'—'} | 📍 ${c.adres||'—'}`;
+
+  const mezu=c.mezu||{};
+  const mid=Math.ceil(MEZU_FIELDS.length/2);
+  const leftF=MEZU_FIELDS.slice(0,mid);
+  const rightF=MEZU_FIELDS.slice(mid);
+  const makeView=function(fields){
+    return fields.map(function(f){
+      return '<div class="mezu-item">'
+        +'<div class="val">'+(mezu[f.key]?mezu[f.key]+' cm':'—')+'</div>'
+        +'<div class="lbl">'+f.label+'</div>'
+        +'</div>';
+    }).join('');
+  };
+  document.getElementById('mezu-display').innerHTML=
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%">'
+    +'<div style="display:flex;flex-direction:column;gap:10px">'+makeView(leftF)+'</div>'
+    +'<div style="display:flex;flex-direction:column;gap:10px">'+makeView(rightF)+'</div>'
+    +'</div>';
+
+  const co=orders.filter(o=>o.clientId===selectedClientId);
+  const oc=document.getElementById('mezu-orders-card');
+  if(co.length){
+    oc.classList.remove('hidden');
+    document.getElementById('mezu-orders-count').textContent=co.length;
+    document.getElementById('mezu-orders-list').innerHTML=co.map(o=>`
+      <div style="padding:10px 0;border-bottom:1px dashed #DDD5C8">
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px">
+          <strong style="font-size:.92rem">${o.service}</strong>
+          <span class="badge ${badgeClass(o.statut)}">${displayStatut(o.statut)}</span>
+        </div>
+        <div style="font-size:.92rem;color:#5C5470;margin-top:4px">${t('lbl_total')}: <strong>${o.prixTotal} HTG</strong> | ${t('lbl_res')}: <strong>${o.reste} HTG</strong></div>
+      </div>`).join('');
+  } else { oc.classList.add('hidden'); }
+  // Asire view toujou vizib
+  document.getElementById('mezu-view').classList.remove('hidden');
+  document.getElementById('mezu-edit').classList.add('hidden');
+}
+
+function startEditMezu(){
+  const c=clients.find(x=>x.id===selectedClientId);
+  const mezu=c.mezu||{};
+  // 2 kolòn — goch ak dwat
+  const mid=Math.ceil(MEZU_FIELDS.length/2);
+  const left=MEZU_FIELDS.slice(0,mid);
+  const right=MEZU_FIELDS.slice(mid);
+  const makeCol=fields=>fields.map(f=>`
+    <div class="field" style="margin-bottom:10px">
+      <label style="font-size:.95rem;font-weight:600;color:#5C5470;letter-spacing:.4px">${f.label}</label>
+      <div style="display:flex;align-items:center;gap:6px">
+        <input type="number" id="mz-${f.key}" placeholder="0" value="${mezu[f.key]||''}"
+          style="width:100%;border:1.5px solid #DDD5C8;border-radius:8px;padding:7px 10px;font-size:.9rem;background:#F8F5F0;outline:none;color:#1A1A2E"/>
+        <span style="font-size:.95rem;color:#5C5470;flex-shrink:0">cm</span>
+      </div>
+    </div>`).join('');
+  document.getElementById('mezu-form-grid').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
+      <div>${makeCol(left)}</div>
+      <div>${makeCol(right)}</div>
+    </div>`;
+  document.getElementById('mezu-view').classList.add('hidden');
+  document.getElementById('mezu-edit').classList.remove('hidden');
+}
+
+function cancelEditMezu(){
+  document.getElementById('mezu-view').classList.remove('hidden');
+  document.getElementById('mezu-edit').classList.add('hidden');
+}
+
+async function saveMezu(){
+  const mezu={};
+  MEZU_FIELDS.forEach(f=>{
+    const v=document.getElementById('mz-'+f.key)?.value;
+    if(v) mezu[f.key]=v;
+  });
+
+  setLoading('btn-save-mezu',true,'');
+  try{
+    if(useFirebase){
+      // Update sèlman champ mezu — pa touche uid
+      await db.collection('clients').doc(selectedClientId).update({mezu:mezu});
+    } else {
+      clients=clients.map(c=>c.id===selectedClientId?{...c,mezu}:c);
+      saveLocal();
+      renderMezu();
+    }
+    cancelEditMezu();
+    showToast(t('toast_mezu_saved'));
+  } catch(e){
+    showToast('❌ Erè mezu: '+e.message,'error');
+    console.error('saveMezu error:',e);
+  }
+  setLoading('btn-save-mezu',false,'💾 Sove Mezu');
+}
+
+// =====================================================================
+//  KOMAND
+// =====================================================================
+function badgeClass(s){
+  var d=normalizeStatut(s);
+  if(d==='done') return 'badge-green';
+  if(d==='prog') return 'badge-yellow';
+  return 'badge-red';
+}
+
+// Nòmalize statut — konvèti nenpòt lang nan 'wait'/'prog'/'done'
+function normalizeStatut(s){
+  var done=['Livré','Delivered','Livré'];
+  var prog=['An Pwogrè','In Progress','En Cours'];
+  if(done.indexOf(s)>=0) return 'done';
+  if(prog.indexOf(s)>=0) return 'prog';
+  return 'wait';
+}
+
+// Tradwi statut ki sove nan DB (kèlkeswa lang) pou afichaj
+function displayStatut(s){
+  var n=normalizeStatut(s);
+  if(n==='done') return t('status_done');
+  if(n==='prog') return t('status_prog');
+  return t('status_wait');
+}
+
+function renderOrderForm(){
+  const sel=document.getElementById('o-client');
+  if(!sel) return;
+  const cur=sel.value;
+  sel.innerHTML='<option value="">— '+t('lbl_o_client')+' —</option>'+
+    clients.map(c=>`<option value="${c.id}"${c.id===cur?' selected':''}>${c.nom}</option>`).join('');
+  // Toujou re-jenere sèvis yo pou lang aktyèl la
+  const svc=document.getElementById('o-service');
+  const curSvc=svc?svc.value:'';
+  if(svc) svc.innerHTML=getServices().map(s=>`<option${s===curSvc?' selected':''}>${s}</option>`).join('');
+  if(!document.getElementById('o-dkomand').value) document.getElementById('o-dkomand').value=today();
+}
+
+function updateTotal(){
+  var total=(parseFloat(document.getElementById('o-ptissu').value)||0)+
+            (parseFloat(document.getElementById('o-pmain').value)||0);
+  var avans=parseFloat(document.getElementById('o-avans').value)||0;
+  document.getElementById('order-total-preview').innerHTML=
+    t('lbl_total')+': '+total.toLocaleString()+' HTG | '+t('lbl_o_avans')+': '+avans.toLocaleString()+' HTG | '+t('lbl_res')+': <strong>'+(total-avans).toLocaleString()+' HTG</strong>';
+}
+
+async function saveOrder(){
+  const clientId=document.getElementById('o-client').value;
+  if(!clientId){showToast('⚠️ Chwazi yon kliyan!','error');return;}
+
+  const c=clients.find(x=>x.id===clientId);
+  const pt=parseFloat(document.getElementById('o-ptissu').value)||0;
+  const pm=parseFloat(document.getElementById('o-pmain').value)||0;
+  const av=parseFloat(document.getElementById('o-avans').value)||0;
+
+  const order={
+    clientId, clientNom:c.nom,
+    service:document.getElementById('o-service').value,
+    description:document.getElementById('o-desc').value.trim(),
+    tissu:document.getElementById('o-tissu').value.trim(),
+    prixTissu:pt, prixMain:pm, avance:av,
+    prixTotal:pt+pm, reste:(pt+pm)-av,
+    dateCommande:document.getElementById('o-dkomand').value,
+    dateLivraison:document.getElementById('o-dliv').value,
+    statut:t('status_wait'), dateCreation:today()
+  };
+  if(currentUser) order.uid=currentUser.uid;
+
+  setLoading('btn-save-order',true,'');
+  try{
+    if(useFirebase){
+      await db.collection('orders').add(order);
+    } else {
+      orders.unshift({id:genId(),...order});
+      saveLocal();
+      renderOrderList();
+      renderResiList();
+    }
+    ['o-desc','o-tissu','o-ptissu','o-pmain','o-avans','o-dliv'].forEach(id=>{
+      document.getElementById(id).value='';
+    });
+    updateTotal();
+    showToast(t('toast_order_saved'));
+  } catch(e){
+    showToast('❌ Erè komand: '+e.message,'error');
+    console.error('saveOrder error:',e);
+  }
+  setLoading('btn-save-order',false,'➕ Anrejistre Komand');
+}
+
+async function updateStatut(id, val){
+  try{
+    if(useFirebase){
+      await db.collection('orders').doc(id).update({statut:val});
+    } else {
+      orders=orders.map(o=>o.id===id?{...o,statut:val}:o);
+      saveLocal();
+      renderOrderList();
+      renderResiList();
+    }
+    showToast(t('toast_status_updated'));
+  } catch(e){
+    showToast('❌ Erè estati: '+e.message,'error');
+    console.error('updateStatut error:',e);
+  }
+}
+
+async function deleteOrder(id){
+  if(!confirm('Efase komand sa a pèmananman?')) return;
+  try{
+    if(useFirebase){
+      await db.collection('orders').doc(id).delete();
+    } else {
+      orders=orders.filter(o=>o.id!==id);
+      saveLocal();
+      renderOrderList();
+      renderResiList();
+    }
+    showToast(t('toast_order_deleted'));
+  } catch(e){
+    showToast('❌ Erè efasman komand: '+e.message,'error');
+    console.error('deleteOrder error:',e);
+  }
+}
+
+function renderOrderList(){
+  document.getElementById('order-count').textContent=orders.length;
+  const el=document.getElementById('order-list');
+  if(!el) return;
+  if(!orders.length){
+    el.innerHTML='<div class="empty-state"><div class="icon">🧵</div>'+t('empty_orders')+'</div>';
+    return;
+  }
+  el.innerHTML=orders.map(o=>`
+    <div style="padding:14px 16px;border:1.5px solid #DDD5C8;border-radius:10px;background:#F8F5F0;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+        <div>
+          <strong style="color:#1B2B4B">${o.clientNom}</strong>
+          <span style="margin:0 6px;color:#C5973A">·</span>
+          <span style="font-size:.95rem">${o.service}</span>
+        </div>
+        <span class="badge ${badgeClass(o.statut)}">${displayStatut(o.statut)}</span>
+      </div>
+      ${o.description?`<div style="font-size:.92rem;color:#5C5470;margin-bottom:4px">${o.description}</div>`:''}
+      <div style="font-size:.92rem;color:#5C5470;margin-bottom:8px">
+        💰 ${o.prixTotal.toLocaleString()} HTG | ${t('lbl_o_avans')}: ${(o.avance||0).toLocaleString()} | ${t('receipt_balance').replace('💳 ','')}: <strong>${o.reste.toLocaleString()} HTG</strong>
+        ${o.dateLivraison?' | 📅 '+o.dateLivraison:''}
+      </div>
+      <div class="actions">
+        <select class="btn btn-outline btn-sm" style="padding:5px 10px" onchange="updateStatut('${o.id}',this.value)">
+          <option value="${t('status_wait')}"${normalizeStatut(o.statut)==='wait'?' selected':''}>${t('status_wait')}</option>
+          <option value="${t('status_prog')}"${normalizeStatut(o.statut)==='prog'?' selected':''}>${t('status_prog')}</option>
+          <option value="${t('status_done')}"${normalizeStatut(o.statut)==='done'?' selected':''}>${t('status_done')}</option>
+        </select>
+        <button class="btn btn-outline btn-sm" onclick="showReceipt('${o.id}')">🧾 " + t('tab_resi') + "</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteOrder('${o.id}')">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+// =====================================================================
+//  RESI
+// =====================================================================
+function renderResiList(){
+  const el=document.getElementById('resi-list');
+  if(!el) return;
+  if(!orders.length){
+    el.innerHTML='<div class="empty-state"><div class="icon">🧾</div>'+t('empty_resi')+'</div>';
+    return;
+  }
+  el.innerHTML=orders.map(o=>`
+    <div class="client-item" onclick="showReceipt('${o.id}')">
+      <div class="client-info">
+        <strong>${o.clientNom} — ${o.service}</strong>
+        <span>💰 ${o.prixTotal.toLocaleString()} HTG | ${t('lbl_res')}: ${o.reste.toLocaleString()} HTG | <span class="badge ${badgeClass(o.statut)}">${displayStatut(o.statut)}</span></span>
+      </div>
+      <span class="badge badge-yellow">${t('detail_btn')}</span>
+    </div>`).join('');
+}
+
+function showReceipt(id){
+  const o=orders.find(x=>x.id===id);
+  currentReceiptOrder=o;
+  document.getElementById('resi-pick').classList.add('hidden');
+  document.getElementById('resi-show').classList.remove('hidden');
+  var rhtml='';
+  rhtml+='<div class="receipt-header">';
+  rhtml+='<h3>✂️ Gens Le Couturier</h3>';
+  rhtml+='<p style="font-size:.92rem;color:#5C5470;margin-top:4px">📞 37374436</p>';
+  rhtml+='<p style="font-size:.92rem;color:#5C5470;margin-top:2px">'+t('receipt_title')+'</p>';
+  rhtml+='<p style="font-size:.95rem;color:#5C5470">#'+o.id.toUpperCase()+'</p>';
+  rhtml+='</div>';
+  rhtml+='<div style="margin-bottom:14px">';
+  rhtml+='<div class="receipt-row"><span>'+t('receipt_client')+'</span><strong>'+o.clientNom+'</strong></div>';
+  rhtml+='<div class="receipt-row"><span>'+t('receipt_service')+'</span><span>'+o.service+'</span></div>';
+  if(o.description) rhtml+='<div class="receipt-row"><span>'+t('receipt_detail')+'</span><span>'+o.description+'</span></div>';
+  if(o.tissu) rhtml+='<div class="receipt-row"><span>'+t('receipt_tissu')+'</span><span>'+o.tissu+'</span></div>';
+  rhtml+='<div class="receipt-row"><span>'+t('receipt_date')+'</span><span>'+o.dateCommande+'</span></div>';
+  if(o.dateLivraison) rhtml+='<div class="receipt-row"><span>'+t('receipt_delivery')+'</span><span>'+o.dateLivraison+'</span></div>';
+  rhtml+='<div class="receipt-row"><span>'+t('receipt_status')+'</span><span class="badge '+badgeClass(o.statut)+'">'+displayStatut(o.statut)+'</span></div>';
+  rhtml+='</div>';
+  rhtml+='<hr class="divider"/>';
+  rhtml+='<div>';
+  if(o.prixTissu>0) rhtml+='<div class="receipt-row"><span>'+t('receipt_price_tissu')+'</span><span>'+parseFloat(o.prixTissu).toLocaleString()+' HTG</span></div>';
+  if(o.prixMain>0)  rhtml+='<div class="receipt-row"><span>'+t('receipt_price_work')+'</span><span>'+parseFloat(o.prixMain).toLocaleString()+' HTG</span></div>';
+  rhtml+='<div class="receipt-row total"><span>'+t('receipt_total')+'</span><span>'+o.prixTotal.toLocaleString()+' HTG</span></div>';
+  rhtml+='<div class="receipt-row"><span>'+t('receipt_advance')+'</span><span style="color:#2e7d32">− '+(parseFloat(o.avance)||0).toLocaleString()+' HTG</span></div>';
+  rhtml+='<div class="receipt-row total"><span>'+t('receipt_balance')+'</span><span style="color:'+(o.reste>0?'#c62828':'#2e7d32')+'">'+o.reste.toLocaleString()+' HTG</span></div>';
+  rhtml+='</div>';
+  rhtml+='<div style="text-align:center;margin-top:20px;font-size:.95rem;color:#5C5470;border-top:1px dashed #C5973A;padding-top:12px">'+t('receipt_thanks')+' ✂️ Gens Le Couturier | 📞 37374436</div>';
+  document.getElementById('receipt-content').innerHTML=rhtml;
+  showTab('resi');
+}
+
+function printReceipt(){
+  var resiHtml=document.getElementById('receipt-content').innerHTML;
+  var parts=[
+    '<!DOCTYPE html><html><head><meta charset="UTF-8">',
+    '<title>Resi Gens Le Couturier</title>',
+    '<style>',
+    '*{box-sizing:border-box;margin:0;padding:0}',
+    'body{font-family:sans-serif;padding:20px;background:#fff}',
+    '.receipt{border:2px solid #C5973A;border-radius:10px;padding:20px;max-width:380px;margin:0 auto}',
+    '.receipt-header{text-align:center;padding-bottom:12px;margin-bottom:12px;border-bottom:1px dashed #C5973A}',
+    '.receipt-header h3{font-size:1.3rem;color:#1B2B4B;font-weight:700}',
+    '.receipt-header p{font-size:.95rem;color:#5C5470;margin-top:3px}',
+    '.receipt-row{display:flex;justify-content:space-between;padding:5px 0;font-size:.95rem;border-bottom:1px dotted #DDD5C8}',
+    '.receipt-row.total{font-weight:700;color:#1B2B4B;border-bottom:none;padding-top:8px;border-top:2px solid #C5973A;margin-top:6px}',
+    '.badge{display:inline-block;padding:2px 7px;border-radius:8px;font-size:.95rem;font-weight:600}',
+    '.badge-green{background:#e8f5e9;color:#2e7d32}',
+    '.badge-yellow{background:#fff8e1;color:#f57f17}',
+    '.badge-red{background:#fdecea;color:#c62828}',
+    'hr.divider{border:none;border-top:1px dashed #DDD5C8;margin:12px 0}',
+    '</style></head><body>',
+    '<div class="receipt">',
+    resiHtml,
+    '</div></body></html>'
+  ];
+  var pageHtml=parts.join('');
+  try{
+    var blob=new Blob([pageHtml],{type:'text/html'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.target='_blank';
+    a.click();
+    setTimeout(function(){URL.revokeObjectURL(url);},5000);
+  } catch(err){
+    // Fallback final — overlay print
+    var overlay=document.getElementById('print-overlay');
+    document.getElementById('print-receipt-content').innerHTML='<div class="receipt">'+resiHtml+'</div>';
+    overlay.style.display='block';
+    setTimeout(function(){
+      window.print();
+      setTimeout(function(){overlay.style.display='none';},600);
+    },300);
+  }
+}
+
+function shareWhatsApp(){
+  if(!currentReceiptOrder) return;
+  const o=currentReceiptOrder;
+  const msg=`✂️ *Gens Le Couturier*\n📞 37374436\n\n*RESI KOMAND #${o.id.toUpperCase()}*\n\n`+
+    `👤 Kliyan: ${o.clientNom}\n`+
+    `🧵 Sèvis: ${o.service}\n`+
+    (o.description?`📝 Detay: ${o.description}\n`:'')+
+    (o.tissu?`🪡 Twal: ${o.tissu}\n`:'')+
+    `📅 Dat: ${o.dateCommande}\n`+
+    (o.dateLivraison?`📦 Livrezon: ${o.dateLivraison}\n`:'')+
+    `\n💰 *Pri Twal:* ${(o.prixTissu||0).toLocaleString()} HTG\n`+
+    `✂️ *Pri Travay:* ${(o.prixMain||0).toLocaleString()} HTG\n`+
+    `📊 *TOTAL:* ${o.prixTotal.toLocaleString()} HTG\n`+
+    `✅ *Avans:* ${(o.avance||0).toLocaleString()} HTG\n`+
+    `💳 *Rès:* ${o.reste.toLocaleString()} HTG\n\n`+
+    `📊 Estati: ${o.statut}\n\n_Mèsi pou konfyans ou!_`;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+
+function closeReceipt(){
+  currentReceiptOrder=null;
+  document.getElementById('resi-pick').classList.remove('hidden');
+  document.getElementById('resi-show').classList.add('hidden');
+}
+
+// =====================================================================
+//  TABS
+// =====================================================================
+function showTab(tab){
+  ['clients','mezu','komand','resi'].forEach((t,i)=>{
+    document.getElementById('tab-'+t).classList.add('hidden');
+    document.querySelectorAll('.tab')[i].classList.remove('active');
+  });
+  document.getElementById('tab-'+tab).classList.remove('hidden');
+  document.querySelectorAll('.tab')[['clients','mezu','komand','resi'].indexOf(tab)].classList.add('active');
+  if(tab==='komand') renderOrderForm();
+  if(tab==='resi')   renderResiList();
+}
+
+// =====================================================================
+//  BACKUP
+// =====================================================================
+function exportData(){
+  const data={version:2,date:new Date().toISOString(),clients,orders};
+  const json=JSON.stringify(data,null,2);
+  const dateStr=new Date().toISOString().split('T')[0];
+  const a=document.createElement('a');
+  a.setAttribute('href','data:application/json;charset=utf-8,'+encodeURIComponent(json));
+  a.setAttribute('download','GensLeCouturier_backup_'+dateStr+'.json');
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast(t('toast_backup'));
+}
+
+async function importData(event){
+  const file=event.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!data.clients||!data.orders){showToast('❌ Fichye a pa valid!','error');return;}
+      if(!confirm(`Ou pral chaje ${data.clients.length} kliyan ak ${data.orders.length} komand.\nDone ki deja la yo ap ranplase. Kontinye?`)) return;
+      if(useFirebase){
+        const batch=db.batch();
+        data.clients.forEach(c=>{const {id,...rest}=c;batch.set(db.collection('clients').doc(id),rest);});
+        data.orders.forEach(o=>{const {id,...rest}=o;batch.set(db.collection('orders').doc(id),rest);});
+        await batch.commit();
+      } else {
+        clients=data.clients; orders=data.orders;
+        saveLocal(); renderAll();
+      }
+      showToast(`✅ ${data.clients.length} kliyan | ${data.orders.length} komand chaje!`);
+    } catch(err){
+      showToast('❌ Erè fichye: '+err.message,'error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+// =====================================================================
+//  START — Chaje Firebase SDK sekansyèlman anvan init()
+// =====================================================================
+function loadFirebaseAndStart(){
+  var s1=document.createElement('script');
+  s1.src='https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js';
+  s1.onload=function(){
+    var s2=document.createElement('script');
+    s2.src='https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js';
+    s2.onload=function(){
+      var s3=document.createElement('script');
+      s3.src='https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js';
+      s3.onload=function(){ init(); };
+      s3.onerror=function(){ showFbError(); };
+      document.head.appendChild(s3);
+    };
+    s2.onerror=function(){ showFbError(); };
+    document.head.appendChild(s2);
+  };
+  s1.onerror=function(){ showFbError(); };
+  document.head.appendChild(s1);
+}
+
+function showFbError(){
+  document.getElementById('setup-screen').classList.add('hidden');
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('main-app').classList.add('hidden');
+  var d=document.createElement('div');
+  d.style.cssText='min-height:100vh;display:flex;align-items:center;justify-content:center;background:#1A1A2E;padding:20px';
+  d.innerHTML='<div style="background:#fff;border-radius:16px;padding:32px;max-width:380px;text-align:center">'
+    +'<div style="font-size:2.5rem;margin-bottom:12px">WiFi</div>'
+    +'<h2 style="color:#1B2B4B;margin-bottom:10px">Pa gen entenet</h2>'
+    +'<p style="color:#666;font-size:.95rem;line-height:1.6">App la bezwen koneksyon entenet. Verifye WiFi ou epi eseye ankò.</p>'
+    +'<button onclick="location.reload()" style="margin-top:20px;padding:12px 28px;background:#1B2B4B;color:#fff;border:none;border-radius:10px;font-size:.95rem;cursor:pointer;font-weight:600">Eseye Ankò</button>'
+    +'</div>';
+  document.body.appendChild(d);
+}
+
+window.onload=loadFirebaseAndStart;
+</script>
+</body>
+</html>
