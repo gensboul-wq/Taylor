@@ -1143,3 +1143,1112 @@ init();
 </script>
 </body>
 </html>
+.btn-outline:hover:not(:disabled){background:#fdf0e6}
+.btn-danger{background:transparent;border:1.5px solid #e57373;color:#c62828;font-size:.8rem;padding:6px 14px}
+.btn-sm{padding:6px 14px;font-size:.8rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.client-list{display:flex;flex-direction:column;gap:10px}
+.client-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border:1.5px solid #e8cdb5;border-radius:10px;background:#fdf6ee;cursor:pointer;transition:all .2s;flex-wrap:wrap;gap:8px}
+.client-item:hover{border-color:#8b3a0f;background:#fdeee4}
+.client-item.selected{border-color:#8b3a0f;background:#fde8d8}
+.client-info strong{font-size:.95rem;display:block}
+.client-info span{font-size:.8rem;color:#a0613a}
+.mezu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px}
+.mezu-item{background:#fdf0e6;border-radius:8px;padding:10px 12px;border-left:3px solid #c9956a}
+.mezu-item .val{font-family:'Playfair Display',serif;font-size:1.2rem;color:#8b3a0f}
+.mezu-item .lbl{font-size:.72rem;color:#a0613a;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.receipt{background:#fff;border:2px solid #c9956a;border-radius:16px;padding:28px}
+.receipt-header{text-align:center;border-bottom:1.5px dashed #c9956a;padding-bottom:16px;margin-bottom:16px}
+.receipt-header h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:#8b3a0f}
+.receipt-row{display:flex;justify-content:space-between;padding:6px 0;font-size:.9rem;border-bottom:1px dotted #e8cdb5}
+.receipt-row.total{font-weight:700;font-size:1rem;color:#8b3a0f;border-bottom:none;padding-top:12px;border-top:2px solid #c9956a;margin-top:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:500}
+.badge-green{background:#e8f5e9;color:#2e7d32}
+.badge-yellow{background:#fff8e1;color:#f57f17}
+.badge-red{background:#fdecea;color:#c62828}
+.badge-blue{background:#e3f2fd;color:#1565c0}
+.divider{border:none;border-top:1.5px dashed #e8cdb5;margin:16px 0}
+.empty-state{text-align:center;color:#c9956a;padding:32px;font-size:.9rem}
+.empty-state .icon{font-size:2.5rem;margin-bottom:8px}
+.hidden{display:none}
+
+/* ===== AUTH SCREEN ===== */
+.auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#fdf6ee 0%,#fde8d8 100%)}
+.auth-card{background:#fff;border-radius:20px;padding:36px 32px;max-width:420px;width:100%;box-shadow:0 8px 40px rgba(139,58,15,.15)}
+.auth-card .logo{text-align:center;margin-bottom:24px}
+.auth-card .logo h1{font-family:'Playfair Display',serif;font-size:1.8rem;color:#8b3a0f}
+.auth-card .logo p{font-size:.82rem;color:#a0613a;margin-top:4px}
+.auth-tabs{display:flex;background:#fdf0e6;border-radius:10px;padding:4px;margin-bottom:24px;gap:4px}
+.auth-tab{flex:1;padding:9px;border-radius:8px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;color:#a0613a;cursor:pointer;transition:all .2s}
+.auth-tab.active{background:#8b3a0f;color:#fff}
+.auth-error{background:#fdecea;color:#c62828;padding:10px 14px;border-radius:8px;font-size:.83rem;margin-bottom:14px;border-left:3px solid #c62828}
+.auth-success{background:#e8f5e9;color:#2e7d32;padding:10px 14px;border-radius:8px;font-size:.83rem;margin-bottom:14px;border-left:3px solid #2e7d32}
+.auth-divider{text-align:center;color:#c9956a;font-size:.78rem;margin:16px 0;position:relative}
+.auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:#e8cdb5}
+.auth-divider::before{left:0}.auth-divider::after{right:0}
+
+/* ===== SETUP SCREEN ===== */
+.setup-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#fdf6ee 0%,#fde8d8 100%)}
+.setup-card{background:#fff;border-radius:20px;padding:32px;max-width:520px;width:100%;box-shadow:0 4px 24px rgba(139,58,15,.12)}
+.setup-card h2{font-family:'Playfair Display',serif;color:#8b3a0f;font-size:1.5rem;margin-bottom:8px;text-align:center}
+.setup-card .subtitle{text-align:center;color:#a0613a;font-size:.85rem;margin-bottom:24px}
+.step{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.step-num{background:#8b3a0f;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;margin-top:2px}
+.step-text{font-size:.88rem;line-height:1.5;color:#2c1a0e}
+.step-text a{color:#8b3a0f;font-weight:600}
+.step-text code{background:#fdf0e6;padding:2px 6px;border-radius:4px;font-size:.82rem;color:#8b3a0f}
+
+/* ===== SYNC STATUS ===== */
+.sync-status{display:flex;align-items:center;gap:6px;font-size:.78rem;justify-content:center;margin-top:8px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-green{background:#2e7d32}
+.dot-red{background:#c62828}
+.dot-yellow{background:#f57f17;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ===== USER BAR ===== */
+.user-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.user-bar .user-email{font-size:.78rem;color:#a0613a;background:#fdf0e6;padding:4px 12px;border-radius:20px;border:1px solid #e8cdb5}
+
+/* ===== SPINNER ===== */
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(139,58,15,.2);border-top-color:#8b3a0f;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== TOAST ===== */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#2c1a0e;color:#fdf6ee;padding:12px 24px;border-radius:12px;font-size:.88rem;font-weight:500;z-index:9999;transition:transform .3s ease;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.toast-error{background:#c62828}
+#toast.toast-success{background:#2e7d32}
+
+@media print{
+  body > *:not(#print-overlay){ display:none !important; }
+  #print-overlay{display:block !important;position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:9999;padding:20px;}
+  .receipt{border:2px solid #c9956a;border-radius:12px;padding:24px;max-width:400px;margin:0 auto}
+  .receipt-header{text-align:center;border-bottom:1.5px dashed #c9956a;padding-bottom:14px;margin-bottom:14px}
+  .receipt-header h3{font-family:"Playfair Display",serif;font-size:1.4rem;color:#8b3a0f}
+  .receipt-row{display:flex;justify-content:space-between;padding:6px 0;font-size:.88rem;border-bottom:1px dotted #e8cdb5}
+  .receipt-row.total{font-weight:700;color:#8b3a0f;border-bottom:none;padding-top:10px;border-top:2px solid #c9956a;margin-top:6px}
+  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:500}
+  .badge-green{background:#e8f5e9;color:#2e7d32}
+  .badge-yellow{background:#fff8e1;color:#f57f17}
+  .badge-red{background:#fdecea;color:#c62828}
+  .divider{border:none;border-top:1.5px dashed #e8cdb5;margin:14px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- PRINT OVERLAY -->
+<div id="print-overlay" style="display:none">
+  <div id="print-receipt-content"></div>
+</div>
+
+<!-- ===== SETUP SCREEN ===== -->
+<div id="setup-screen" class="setup-screen hidden">
+  <div class="setup-card">
+    <h2>☁️ Konekte Firebase</h2>
+    <p class="subtitle">Ranpli konfigirasyon Firebase ou pou senkronize ant 2 aparèy</p>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Ale sou <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> — konekte ak Google</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">Klike <strong>"Add project"</strong> → Non: <code>gens-le-couturier</code> → Swiv etap yo</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Authentication</strong> → "Get started" → Aktive <strong>Email/Password</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>Firestore Database</strong> → "Create database" → <strong>"Start in test mode"</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text">Ikòn <strong>&lt;/&gt;</strong> → Kopi <strong>firebaseConfig</strong> ou a epi kole l anba</div>
+    </div>
+
+    <div style="margin-top:20px">
+      <div class="form-grid" style="grid-template-columns:1fr">
+        <div class="field"><label>API Key</label><input id="cfg-apiKey" placeholder="AIzaSy..."/></div>
+        <div class="field"><label>Project ID</label><input id="cfg-projectId" placeholder="gens-le-couturier"/></div>
+        <div class="field"><label>App ID</label><input id="cfg-appId" placeholder="1:123456:web:abc..."/></div>
+        <div class="field"><label>Messaging Sender ID <span style="font-weight:300;text-transform:none">(opsyonèl)</span></label><input id="cfg-senderId" placeholder="123456789"/></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <button class="btn btn-primary" onclick="connectFirebase()" id="btn-connect" style="flex:1">🔌 Konekte</button>
+        <button class="btn btn-outline" onclick="useLocal()" style="flex:1">📴 San Entènèt</button>
+      </div>
+      <p id="setup-error" style="color:#c62828;font-size:.8rem;margin-top:10px;text-align:center"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== AUTH SCREEN (Login / Register) ===== -->
+<div id="auth-screen" class="auth-screen hidden">
+  <div class="auth-card">
+    <div class="logo">
+      <h1>✂️ Gens Le Couturier</h1>
+      <p>Jesyon Mezu, Komand ak Resi</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login')" id="atab-login">🔑 Konekte</button>
+      <button class="auth-tab" onclick="switchAuthTab('register')" id="atab-register">📝 Enskri</button>
+    </div>
+
+    <div id="auth-message"></div>
+
+    <!-- LOGIN -->
+    <div id="auth-login">
+      <div class="form-grid" style="grid-template-columns:1fr">
+        <div class="field"><label>Imel</label><input id="login-email" type="email" placeholder="exemple@email.com" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+        <div class="field"><label>Modpas</label><input id="login-password" type="password" placeholder="Modpas ou..." onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      </div>
+      <button class="btn btn-primary" onclick="doLogin()" id="btn-login" style="width:100%">🔑 Konekte</button>
+      <div class="auth-divider" style="margin-top:16px">oswa</div>
+      <button class="btn btn-outline" onclick="useLocal()" style="width:100%;margin-top:8px">📴 Kontinye san kont</button>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="auth-register" class="hidden">
+      <div class="form-grid" style="grid-template-columns:1fr">
+        <div class="field"><label>Imel</label><input id="reg-email" type="email" placeholder="exemple@email.com"/></div>
+        <div class="field"><label>Modpas <span style="font-weight:300;text-transform:none">(6 karaktè min.)</span></label><input id="reg-password" type="password" placeholder="Chwazi yon modpas solid" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+        <div class="field"><label>Konfime Modpas</label><input id="reg-confirm" type="password" placeholder="Repete modpas la" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+      </div>
+      <button class="btn btn-primary" onclick="doRegister()" id="btn-register" style="width:100%">📝 Kreye Kont</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="main-app" class="hidden">
+<div class="app">
+  <div class="header">
+    <h1>✂️ Gens Le Couturier</h1>
+    <p>Jesyon Mezu, Komand ak Resi</p>
+    <div class="sync-status no-print" id="sync-status">
+      <div class="dot dot-yellow" id="sync-dot"></div>
+      <span id="sync-text">Koneksyon...</span>
+    </div>
+    <div class="user-bar no-print" id="user-bar" style="display:none">
+      <span class="user-email" id="user-email-display">—</span>
+      <button class="btn btn-outline btn-sm" onclick="doLogout()" style="font-size:.75rem;padding:4px 12px">🚪 Dekonekte</button>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-outline btn-sm no-print" onclick="exportData()" style="font-size:.78rem;padding:6px 14px">💾 Sove Backup</button>
+      <button class="btn btn-outline btn-sm no-print" onclick="document.getElementById('import-file').click()" style="font-size:.78rem;padding:6px 14px">📂 Chaje Backup</button>
+      <button class="btn btn-outline btn-sm no-print" onclick="changeConfig()" style="font-size:.78rem;padding:6px 14px">⚙️ Paramèt</button>
+      <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)"/>
+    </div>
+  </div>
+
+  <div class="tabs no-print">
+    <button class="tab active" onclick="showTab('clients')">👤 Kliyan</button>
+    <button class="tab" onclick="showTab('mezu')">📏 Mezu</button>
+    <button class="tab" onclick="showTab('komand')">📋 Komand</button>
+    <button class="tab" onclick="showTab('resi')">🧾 Resi</button>
+  </div>
+
+  <!-- CLIENTS -->
+  <div id="tab-clients">
+    <div class="card">
+      <h2 id="client-form-title">➕ Nouvo Kliyan</h2>
+      <div class="form-grid">
+        <div class="field"><label>Non Kliyan</label><input id="f-nom" placeholder="Ex: Marie Jean"/></div>
+        <div class="field"><label>Telefòn</label><input id="f-tel" placeholder="Ex: 509-XXXX-XXXX"/></div>
+        <div class="field"><label>Adres</label><input id="f-adres" placeholder="Ex: Pòtoprens"/></div>
+        <div class="field"><label>Nòt</label><textarea id="f-notes" placeholder="Nòt siplemantè..."></textarea></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="saveClient()" id="btn-save-client">💾 Sove Kliyan</button>
+        <button class="btn btn-outline" onclick="newClient()">🆕 Nouvo</button>
+        <button class="btn btn-danger hidden" id="btn-delete-client" onclick="deleteClient()">🗑️ Efase</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2 id="client-list-title">📋 Lis Kliyan (0)</h2>
+      <div style="margin-bottom:12px">
+        <input id="search-client" placeholder="🔍 Chache kliyan..." style="border:1.5px solid #e8cdb5;border-radius:8px;padding:8px 12px;width:100%;font-family:'DM Sans',sans-serif;font-size:.88rem;background:#fdf6ee;outline:none" oninput="renderClientList()"/>
+      </div>
+      <div class="client-list" id="client-list">
+        <div class="empty-state"><div class="icon">👤</div>Pa gen kliyan ankò.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEZU -->
+  <div id="tab-mezu" class="hidden">
+    <div id="mezu-no-client" class="card">
+      <div class="empty-state"><div class="icon">📏</div>Chwazi yon kliyan nan lòng "Kliyan" pou wè oswa antre mezu li.</div>
+    </div>
+    <div id="mezu-content" class="hidden">
+      <div class="card">
+        <h2>📏 Mezu pou: <span id="mezu-client-name"></span></h2>
+        <p id="mezu-client-info" style="font-size:.82rem;color:#a0613a;margin-bottom:14px"></p>
+        <div id="mezu-view">
+          <div class="mezu-grid" id="mezu-display"></div>
+          <div style="margin-top:16px"><button class="btn btn-primary" onclick="startEditMezu()">✏️ Modifye Mezu</button></div>
+        </div>
+        <div id="mezu-edit" class="hidden">
+          <div class="form-grid" id="mezu-form-grid"></div>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="saveMezu()" id="btn-save-mezu">💾 Sove Mezu</button>
+            <button class="btn btn-outline" onclick="cancelEditMezu()">Anile</button>
+          </div>
+        </div>
+      </div>
+      <div id="mezu-orders-card" class="card hidden">
+        <h2>🧵 Komand Kliyan Sa (<span id="mezu-orders-count">0</span>)</h2>
+        <div id="mezu-orders-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KOMAND -->
+  <div id="tab-komand" class="hidden">
+    <div class="card">
+      <h2>🧵 Nouvo Komand</h2>
+      <div class="form-grid">
+        <div class="field"><label>Kliyan</label><select id="o-client"><option value="">— Chwazi Kliyan —</option></select></div>
+        <div class="field"><label>Sèvis</label><select id="o-service"></select></div>
+        <div class="field"><label>Deskripsyon</label><input id="o-desc" placeholder="Detay rad la..."/></div>
+        <div class="field"><label>Twal / Materyèl</label><input id="o-tissu" placeholder="Ex: Chiffon blan"/></div>
+        <div class="field"><label>Pri Twal (HTG)</label><input id="o-ptissu" type="number" placeholder="0" oninput="updateTotal()"/></div>
+        <div class="field"><label>Pri Travay (HTG)</label><input id="o-pmain" type="number" placeholder="0" oninput="updateTotal()"/></div>
+        <div class="field"><label>Avans Peye (HTG)</label><input id="o-avans" type="number" placeholder="0" oninput="updateTotal()"/></div>
+        <div class="field"><label>Dat Komand</label><input id="o-dkomand" type="date"/></div>
+        <div class="field"><label>Dat Livrezon</label><input id="o-dliv" type="date"/></div>
+      </div>
+      <div id="order-total-preview" style="margin-bottom:12px;font-size:.9rem;color:#8b3a0f;font-weight:500">Total: 0 HTG | Avans: 0 HTG | Rès: <strong>0 HTG</strong></div>
+      <button class="btn btn-primary" onclick="saveOrder()" id="btn-save-order">➕ Anrejistre Komand</button>
+    </div>
+    <div class="card">
+      <h2>📋 Tout Komand (<span id="order-count">0</span>)</h2>
+      <div id="order-list"><div class="empty-state"><div class="icon">🧵</div>Pa gen komand ankò.</div></div>
+    </div>
+  </div>
+
+  <!-- RESI -->
+  <div id="tab-resi" class="hidden">
+    <div id="resi-pick" class="card">
+      <h2>🧾 Chwazi Komand</h2>
+      <div id="resi-list"><div class="empty-state"><div class="icon">🧾</div>Pa gen komand pou fè resi.</div></div>
+    </div>
+    <div id="resi-show" class="hidden">
+      <div class="no-print actions" style="margin-bottom:16px">
+        <button class="btn btn-outline" onclick="closeReceipt()">← Retounen</button>
+        <button class="btn btn-primary" onclick="printReceipt()">🖨️ Enprime / Sove PDF</button>
+        <button class="btn btn-outline" onclick="shareWhatsApp()">📤 WhatsApp</button>
+      </div>
+      <div class="receipt" id="receipt-content"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// =====================================================================
+//  KONSTANT
+// =====================================================================
+const MEZU_FIELDS=[
+  {key:"zepol",label:"Zepòl"},{key:"ote_do",label:"Otè Do"},{key:"ote_devan",label:"Otè Devan"},
+  {key:"ote_ranch",label:"Otè Ranch"},{key:"eka_sen",label:"Eka Sen"},{key:"pwatrin",label:"Pwatrin"},
+  {key:"bis",label:"Bis"},{key:"longe_do",label:"Longè Do"},{key:"tay",label:"Tay"},
+  {key:"ranch",label:"Ranch"},{key:"long_jenou",label:"Long Jenou"},{key:"laje_jenou",label:"Lajè Jenou"},
+  {key:"long_pantalon",label:"Long Pantalon"},{key:"long_jip",label:"Long Jip"},
+  {key:"long_jile",label:"Long Jilè"},{key:"laj_jile",label:"Laj Jilè"},
+  {key:"tou_bra",label:"Tou Bra"},{key:"kwis",label:"Kwis"}
+];
+const SERVICES=["Koud Rad Dam","Koud Kostim Gason","Retouche","Koud Wòb Marye","Koud Inifòm","Koud Pantalon","Koud Chemiz","Koud Jip","Koud Kostim Tradisyonèl","Lòt"];
+
+const genId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const today=()=>new Date().toISOString().split('T')[0];
+
+// =====================================================================
+//  ETAT GLOBAL
+// =====================================================================
+let clients=[], orders=[], selectedClientId=null;
+let db=null, auth=null, useFirebase=false, currentUser=null;
+let currentReceiptOrder=null;
+
+// =====================================================================
+//  TOAST
+// =====================================================================
+function showToast(msg, type='success', duration=3000){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='show '+(type==='error'?'toast-error':type==='success'?'toast-success':'');
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.classList.remove('show'),duration);
+}
+
+// =====================================================================
+//  SPINNER
+// =====================================================================
+function setLoading(btnId, loading, defaultText){
+  const btn=document.getElementById(btnId);
+  if(!btn) return;
+  btn.disabled=loading;
+  btn.innerHTML=loading?`<span class="spinner"></span>Ap tann...`:defaultText;
+}
+
+// =====================================================================
+//  INIT
+// =====================================================================
+function init(){
+  const cfg=JSON.parse(localStorage.getItem('glc_firebase_cfg')||'null');
+  if(cfg && cfg.apiKey){
+    initFirebase(cfg);
+  } else if(localStorage.getItem('glc_local_mode')){
+    startLocalMode();
+  } else {
+    document.getElementById('setup-screen').classList.remove('hidden');
+  }
+}
+
+// =====================================================================
+//  FIREBASE SETUP
+// =====================================================================
+function connectFirebase(){
+  const apiKey=document.getElementById('cfg-apiKey').value.trim();
+  const projectId=document.getElementById('cfg-projectId').value.trim();
+  const appId=document.getElementById('cfg-appId').value.trim();
+  const senderId=document.getElementById('cfg-senderId').value.trim();
+
+  if(!apiKey||!projectId||!appId){
+    document.getElementById('setup-error').textContent='⚠️ Tanpri ranpli: API Key, Project ID, App ID!';
+    return;
+  }
+  const cfg={
+    apiKey, projectId, appId,
+    authDomain: projectId+'.firebaseapp.com',
+    storageBucket: projectId+'.appspot.com',
+    messagingSenderId: senderId||''
+  };
+  localStorage.setItem('glc_firebase_cfg',JSON.stringify(cfg));
+  localStorage.removeItem('glc_local_mode');
+  setLoading('btn-connect',true,'');
+  initFirebase(cfg);
+}
+
+function initFirebase(cfg){
+  try{
+    if(!firebase.apps || !firebase.apps.length) firebase.initializeApp(cfg);
+    db=firebase.firestore();
+    auth=firebase.auth();
+    useFirebase=true;
+    document.getElementById('setup-screen').classList.add('hidden');
+
+    // Ekri auth — montre ekran login
+    auth.onAuthStateChanged(user=>{
+      if(user){
+        currentUser=user;
+        showMainApp();
+      } else {
+        currentUser=null;
+        showAuthScreen();
+      }
+    });
+  } catch(e){
+    document.getElementById('setup-error').textContent='❌ Erè Firebase: '+e.message;
+    setLoading('btn-connect',false,'🔌 Konekte');
+    document.getElementById('setup-screen').classList.remove('hidden');
+  }
+}
+
+// =====================================================================
+//  AUTH SCREEN
+// =====================================================================
+function showAuthScreen(){
+  document.getElementById('auth-screen').classList.remove('hidden');
+  document.getElementById('main-app').classList.add('hidden');
+}
+
+function switchAuthTab(tab){
+  ['login','register'].forEach(t=>{
+    document.getElementById('auth-'+t).classList.toggle('hidden', t!==tab);
+    document.getElementById('atab-'+t).classList.toggle('active', t===tab);
+  });
+  document.getElementById('auth-message').innerHTML='';
+}
+
+function showAuthMsg(msg, isError=false){
+  const el=document.getElementById('auth-message');
+  el.innerHTML=`<div class="${isError?'auth-error':'auth-success'}">${msg}</div>`;
+}
+
+// LOGIN
+async function doLogin(){
+  const email=document.getElementById('login-email').value.trim();
+  const password=document.getElementById('login-password').value;
+  if(!email||!password){showAuthMsg('⚠️ Antre imel ak modpas ou!',true);return;}
+
+  setLoading('btn-login',true,'');
+  try{
+    await auth.signInWithEmailAndPassword(email, password);
+    // onAuthStateChanged pral fè rès la
+  } catch(e){
+    showAuthMsg('❌ '+translateAuthError(e.code), true);
+    setLoading('btn-login',false,'🔑 Konekte');
+  }
+}
+
+// REGISTER
+async function doRegister(){
+  const email=document.getElementById('reg-email').value.trim();
+  const password=document.getElementById('reg-password').value;
+  const confirm=document.getElementById('reg-confirm').value;
+
+  if(!email||!password){showAuthMsg('⚠️ Ranpli tout chan yo!',true);return;}
+  if(password.length<6){showAuthMsg('⚠️ Modpas la dwe gen omwen 6 karaktè!',true);return;}
+  if(password!==confirm){showAuthMsg('⚠️ Modpas yo pa matche!',true);return;}
+
+  setLoading('btn-register',true,'');
+  try{
+    await auth.createUserWithEmailAndPassword(email, password);
+    showAuthMsg('✅ Kont kreye! Ou konekte kounye a.');
+    // onAuthStateChanged pral redirijé
+  } catch(e){
+    showAuthMsg('❌ '+translateAuthError(e.code), true);
+    setLoading('btn-register',false,'📝 Kreye Kont');
+  }
+}
+
+// LOGOUT
+async function doLogout(){
+  if(!confirm('Ou vle dekonekte?')) return;
+  try{
+    await auth.signOut();
+    showToast('✅ Ou dekonekte avèk siksè');
+  } catch(e){
+    showToast('❌ Erè dekoneksyon: '+e.message, 'error');
+  }
+}
+
+// Tradwi erè Firebase Auth an Kreyòl
+function translateAuthError(code){
+  const errors={
+    'auth/invalid-email':'Imel la pa valid.',
+    'auth/user-not-found':'Pa gen kont ak imel sa a.',
+    'auth/wrong-password':'Modpas la pa kòrèk.',
+    'auth/email-already-in-use':'Imel sa a deja itilize.',
+    'auth/weak-password':'Modpas la twò fèb. Mete omwen 6 karaktè.',
+    'auth/too-many-requests':'Twòp tantativ. Eseye ankò pita.',
+    'auth/network-request-failed':'Pa gen entènèt. Verifye koneksyon ou.',
+    'auth/invalid-credential':'Imel oswa modpas la pa kòrèk.',
+  };
+  return errors[code]||'Erè enkoni ('+code+')';
+}
+
+// =====================================================================
+//  LOCAL MODE
+// =====================================================================
+function useLocal(){
+  localStorage.setItem('glc_local_mode','1');
+  localStorage.removeItem('glc_firebase_cfg');
+  startLocalMode();
+}
+
+function startLocalMode(){
+  useFirebase=false;
+  clients=JSON.parse(localStorage.getItem('glc_clients')||'[]');
+  orders=JSON.parse(localStorage.getItem('glc_orders')||'[]');
+  document.getElementById('setup-screen').classList.add('hidden');
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('main-app').classList.remove('hidden');
+  setSyncStatus('local');
+  renderAll();
+}
+
+function showMainApp(){
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('main-app').classList.remove('hidden');
+
+  // Montre imel itilizatè
+  if(currentUser){
+    const bar=document.getElementById('user-bar');
+    bar.style.display='flex';
+    document.getElementById('user-email-display').textContent='👤 '+currentUser.email;
+  }
+
+  setSyncStatus('connecting');
+  startListeners();
+}
+
+function changeConfig(){
+  if(!confirm('Ou vle chanje konfigirasyon Firebase ou? Ou ap dekonekte.')) return;
+  if(auth) auth.signOut().catch(()=>{});
+  localStorage.removeItem('glc_firebase_cfg');
+  localStorage.removeItem('glc_local_mode');
+  location.reload();
+}
+
+// =====================================================================
+//  FIRESTORE LISTENERS
+// =====================================================================
+function startListeners(){
+  // Kliyan — filtre pa uid si itilizatè konekte
+  const uid=currentUser?.uid;
+
+  let clientQuery=db.collection('clients').orderBy('date','desc');
+  let orderQuery=db.collection('orders').orderBy('dateCreation','desc');
+
+  // Si gen itilizatè konekte: bay chak youn done pèsonèl
+  if(uid){
+    clientQuery=db.collection('clients').where('uid','==',uid).orderBy('date','desc');
+    orderQuery=db.collection('orders').where('uid','==',uid).orderBy('dateCreation','desc');
+  }
+
+  clientQuery.onSnapshot(snap=>{
+    clients=snap.docs.map(d=>({id:d.id,...d.data()}));
+    setSyncStatus('online');
+    renderAll();
+  }, err=>{
+    setSyncStatus('error');
+    showToast('❌ Erè chajman kliyan: '+err.message,'error');
+    console.error('Clients listener error:',err);
+  });
+
+  orderQuery.onSnapshot(snap=>{
+    orders=snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderAll();
+  }, err=>{
+    showToast('❌ Erè chajman komand: '+err.message,'error');
+    console.error('Orders listener error:',err);
+  });
+}
+
+function setSyncStatus(s){
+  const dot=document.getElementById('sync-dot');
+  const txt=document.getElementById('sync-text');
+  if(!dot) return;
+  dot.className='dot';
+  if(s==='online'){dot.classList.add('dot-green');txt.textContent='✅ Senkronize';}
+  else if(s==='connecting'){dot.classList.add('dot-yellow');txt.textContent='⏳ Koneksyon...';}
+  else if(s==='local'){dot.classList.add('dot-red');txt.textContent='📴 Mod Lokal (pa senkronize)';}
+  else{dot.classList.add('dot-red');txt.textContent='❌ Erè koneksyon';}
+}
+
+function saveLocal(){
+  if(!useFirebase){
+    localStorage.setItem('glc_clients',JSON.stringify(clients));
+    localStorage.setItem('glc_orders',JSON.stringify(orders));
+  }
+}
+
+// =====================================================================
+//  KLIYAN
+// =====================================================================
+function renderAll(){
+  renderClientList();
+  renderOrderForm();
+  renderOrderList();
+  renderResiList();
+  if(selectedClientId) renderMezu();
+}
+
+function renderClientList(){
+  const el=document.getElementById('client-list');
+  const search=(document.getElementById('search-client')?.value||'').toLowerCase();
+  const filtered=clients.filter(c=>
+    c.nom?.toLowerCase().includes(search)||
+    c.tel?.toLowerCase().includes(search)||
+    c.adres?.toLowerCase().includes(search)
+  );
+  document.getElementById('client-list-title').textContent=`📋 Lis Kliyan (${clients.length})`;
+  if(!filtered.length){
+    el.innerHTML='<div class="empty-state"><div class="icon">👤</div>'+(search?'Pa gen rezilta pou "'+search+'"':'Pa gen kliyan ankò. Ajoute premye kliyan ou!')+'</div>';
+    return;
+  }
+  el.innerHTML=filtered.map(c=>`
+    <div class="client-item${selectedClientId===c.id?' selected':''}" onclick="selectClient('${c.id}')">
+      <div class="client-info">
+        <strong>${c.nom}</strong>
+        <span>📞 ${c.tel||'—'} | 📍 ${c.adres||'—'}</span>
+      </div>
+      <span class="badge badge-yellow">Wè Detay →</span>
+    </div>`).join('');
+}
+
+function newClient(){
+  selectedClientId=null;
+  document.getElementById('client-form-title').textContent='➕ Nouvo Kliyan';
+  ['nom','tel','adres','notes'].forEach(k=>document.getElementById('f-'+k).value='');
+  document.getElementById('btn-delete-client').classList.add('hidden');
+  renderClientList();
+}
+
+async function saveClient(){
+  const nom=document.getElementById('f-nom').value.trim();
+  if(!nom){showToast('⚠️ Mete non kliyan an!','error');return;}
+
+  const data={
+    nom,
+    tel:document.getElementById('f-tel').value.trim(),
+    adres:document.getElementById('f-adres').value.trim(),
+    notes:document.getElementById('f-notes').value.trim(),
+    date:today()
+  };
+  if(currentUser) data.uid=currentUser.uid;
+
+  setLoading('btn-save-client',true,'');
+  try{
+    if(useFirebase){
+      if(selectedClientId){
+        await db.collection('clients').doc(selectedClientId).update(data);
+        showToast('✅ Kliyan modifye!');
+      } else {
+        const ref=await db.collection('clients').add({...data,mezu:{}});
+        selectedClientId=ref.id;
+        showToast('✅ Nouvo kliyan sove!');
+      }
+    } else {
+      if(selectedClientId){
+        clients=clients.map(c=>c.id===selectedClientId?{...c,...data}:c);
+      } else {
+        const nc={id:genId(),...data,mezu:{}};
+        clients.unshift(nc);
+        selectedClientId=nc.id;
+      }
+      saveLocal();
+      renderClientList();
+      showToast('✅ Kliyan sove!');
+    }
+    document.getElementById('client-form-title').textContent='✏️ Modifye Kliyan';
+    document.getElementById('btn-delete-client').classList.remove('hidden');
+  } catch(e){
+    showToast('❌ Erè: '+e.message,'error');
+    console.error('saveClient error:',e);
+  }
+  setLoading('btn-save-client',false,'💾 Sove Kliyan');
+}
+
+async function deleteClient(){
+  if(!selectedClientId){return;}
+  const c=clients.find(x=>x.id===selectedClientId);
+  const relatedOrders=orders.filter(o=>o.clientId===selectedClientId);
+  const msg=relatedOrders.length
+    ?`Ou pral efase "${c.nom}" ak ${relatedOrders.length} komand li yo. Sa se pèmanan!`
+    :`Ou pral efase kliyan "${c.nom}". Sa se pèmanan!`;
+  if(!confirm(msg)) return;
+
+  try{
+    if(useFirebase){
+      // Efase komand yo tou
+      const batch=db.batch();
+      relatedOrders.forEach(o=>batch.delete(db.collection('orders').doc(o.id)));
+      batch.delete(db.collection('clients').doc(selectedClientId));
+      await batch.commit();
+    } else {
+      orders=orders.filter(o=>o.clientId!==selectedClientId);
+      clients=clients.filter(c=>c.id!==selectedClientId);
+      saveLocal();
+      renderAll();
+    }
+    selectedClientId=null;
+    newClient();
+    showToast('✅ Kliyan efase!');
+  } catch(e){
+    showToast('❌ Erè efasman: '+e.message,'error');
+    console.error('deleteClient error:',e);
+  }
+}
+
+function selectClient(id){
+  selectedClientId=id;
+  const c=clients.find(x=>x.id===id);
+  document.getElementById('f-nom').value=c.nom||'';
+  document.getElementById('f-tel').value=c.tel||'';
+  document.getElementById('f-adres').value=c.adres||'';
+  document.getElementById('f-notes').value=c.notes||'';
+  document.getElementById('client-form-title').textContent='✏️ Modifye Kliyan';
+  document.getElementById('btn-delete-client').classList.remove('hidden');
+  renderClientList();
+  renderMezu();
+  showTab('mezu');
+}
+
+// =====================================================================
+//  MEZU
+// =====================================================================
+function renderMezu(){
+  if(!selectedClientId){
+    document.getElementById('mezu-no-client').classList.remove('hidden');
+    document.getElementById('mezu-content').classList.add('hidden');
+    return;
+  }
+  const c=clients.find(x=>x.id===selectedClientId);
+  if(!c) return;
+  document.getElementById('mezu-no-client').classList.add('hidden');
+  document.getElementById('mezu-content').classList.remove('hidden');
+  document.getElementById('mezu-client-name').textContent=c.nom;
+  document.getElementById('mezu-client-info').textContent=`📞 ${c.tel||'—'} | 📍 ${c.adres||'—'}`;
+
+  const mezu=c.mezu||{};
+  document.getElementById('mezu-display').innerHTML=MEZU_FIELDS.map(f=>`
+    <div class="mezu-item">
+      <div class="val">${mezu[f.key]?mezu[f.key]+' cm':'—'}</div>
+      <div class="lbl">${f.label}</div>
+    </div>`).join('');
+
+  const co=orders.filter(o=>o.clientId===selectedClientId);
+  const oc=document.getElementById('mezu-orders-card');
+  if(co.length){
+    oc.classList.remove('hidden');
+    document.getElementById('mezu-orders-count').textContent=co.length;
+    document.getElementById('mezu-orders-list').innerHTML=co.map(o=>`
+      <div style="padding:10px 0;border-bottom:1px dashed #e8cdb5">
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px">
+          <strong style="font-size:.92rem">${o.service}</strong>
+          <span class="badge ${badgeClass(o.statut)}">${o.statut}</span>
+        </div>
+        <div style="font-size:.8rem;color:#a0613a;margin-top:4px">Total: <strong>${o.prixTotal} HTG</strong> | Rès: <strong>${o.reste} HTG</strong></div>
+      </div>`).join('');
+  } else { oc.classList.add('hidden'); }
+  cancelEditMezu();
+}
+
+function startEditMezu(){
+  const c=clients.find(x=>x.id===selectedClientId);
+  const mezu=c.mezu||{};
+  document.getElementById('mezu-form-grid').innerHTML=MEZU_FIELDS.map(f=>`
+    <div class="field">
+      <label>${f.label} (cm)</label>
+      <input type="number" id="mz-${f.key}" placeholder="0" value="${mezu[f.key]||''}"/>
+    </div>`).join('');
+  document.getElementById('mezu-view').classList.add('hidden');
+  document.getElementById('mezu-edit').classList.remove('hidden');
+}
+
+function cancelEditMezu(){
+  document.getElementById('mezu-view').classList.remove('hidden');
+  document.getElementById('mezu-edit').classList.add('hidden');
+}
+
+async function saveMezu(){
+  const mezu={};
+  MEZU_FIELDS.forEach(f=>{
+    const v=document.getElementById('mz-'+f.key)?.value;
+    if(v) mezu[f.key]=v;
+  });
+
+  setLoading('btn-save-mezu',true,'');
+  try{
+    if(useFirebase){
+      await db.collection('clients').doc(selectedClientId).update({mezu});
+    } else {
+      clients=clients.map(c=>c.id===selectedClientId?{...c,mezu}:c);
+      saveLocal();
+      renderMezu();
+    }
+    cancelEditMezu();
+    showToast('✅ Mezu sove!');
+  } catch(e){
+    showToast('❌ Erè mezu: '+e.message,'error');
+    console.error('saveMezu error:',e);
+  }
+  setLoading('btn-save-mezu',false,'💾 Sove Mezu');
+}
+
+// =====================================================================
+//  KOMAND
+// =====================================================================
+function badgeClass(s){
+  return s==='Livré'?'badge-green':s==='An Pwogrè'?'badge-yellow':'badge-red';
+}
+
+function renderOrderForm(){
+  const sel=document.getElementById('o-client');
+  if(!sel) return;
+  const cur=sel.value;
+  sel.innerHTML='<option value="">— Chwazi Kliyan —</option>'+
+    clients.map(c=>`<option value="${c.id}"${c.id===cur?' selected':''}>${c.nom}</option>`).join('');
+  const svc=document.getElementById('o-service');
+  if(!svc.innerHTML) svc.innerHTML=SERVICES.map(s=>`<option>${s}</option>`).join('');
+  if(!document.getElementById('o-dkomand').value) document.getElementById('o-dkomand').value=today();
+}
+
+function updateTotal(){
+  const t=(parseFloat(document.getElementById('o-ptissu').value)||0)+
+           (parseFloat(document.getElementById('o-pmain').value)||0);
+  const a=parseFloat(document.getElementById('o-avans').value)||0;
+  document.getElementById('order-total-preview').innerHTML=
+    `Total: ${t.toLocaleString()} HTG | Avans: ${a.toLocaleString()} HTG | Rès: <strong>${(t-a).toLocaleString()} HTG</strong>`;
+}
+
+async function saveOrder(){
+  const clientId=document.getElementById('o-client').value;
+  if(!clientId){showToast('⚠️ Chwazi yon kliyan!','error');return;}
+
+  const c=clients.find(x=>x.id===clientId);
+  const pt=parseFloat(document.getElementById('o-ptissu').value)||0;
+  const pm=parseFloat(document.getElementById('o-pmain').value)||0;
+  const av=parseFloat(document.getElementById('o-avans').value)||0;
+
+  const order={
+    clientId, clientNom:c.nom,
+    service:document.getElementById('o-service').value,
+    description:document.getElementById('o-desc').value.trim(),
+    tissu:document.getElementById('o-tissu').value.trim(),
+    prixTissu:pt, prixMain:pm, avance:av,
+    prixTotal:pt+pm, reste:(pt+pm)-av,
+    dateCommande:document.getElementById('o-dkomand').value,
+    dateLivraison:document.getElementById('o-dliv').value,
+    statut:'An Atant', dateCreation:today()
+  };
+  if(currentUser) order.uid=currentUser.uid;
+
+  setLoading('btn-save-order',true,'');
+  try{
+    if(useFirebase){
+      await db.collection('orders').add(order);
+    } else {
+      orders.unshift({id:genId(),...order});
+      saveLocal();
+      renderOrderList();
+      renderResiList();
+    }
+    ['o-desc','o-tissu','o-ptissu','o-pmain','o-avans','o-dliv'].forEach(id=>{
+      document.getElementById(id).value='';
+    });
+    updateTotal();
+    showToast('✅ Komand anrejistre!');
+  } catch(e){
+    showToast('❌ Erè komand: '+e.message,'error');
+    console.error('saveOrder error:',e);
+  }
+  setLoading('btn-save-order',false,'➕ Anrejistre Komand');
+}
+
+async function updateStatut(id, val){
+  try{
+    if(useFirebase){
+      await db.collection('orders').doc(id).update({statut:val});
+    } else {
+      orders=orders.map(o=>o.id===id?{...o,statut:val}:o);
+      saveLocal();
+      renderOrderList();
+      renderResiList();
+    }
+    showToast('✅ Estati mete ajou!');
+  } catch(e){
+    showToast('❌ Erè estati: '+e.message,'error');
+    console.error('updateStatut error:',e);
+  }
+}
+
+async function deleteOrder(id){
+  if(!confirm('Efase komand sa a pèmananman?')) return;
+  try{
+    if(useFirebase){
+      await db.collection('orders').doc(id).delete();
+    } else {
+      orders=orders.filter(o=>o.id!==id);
+      saveLocal();
+      renderOrderList();
+      renderResiList();
+    }
+    showToast('✅ Komand efase!');
+  } catch(e){
+    showToast('❌ Erè efasman komand: '+e.message,'error');
+    console.error('deleteOrder error:',e);
+  }
+}
+
+function renderOrderList(){
+  document.getElementById('order-count').textContent=orders.length;
+  const el=document.getElementById('order-list');
+  if(!el) return;
+  if(!orders.length){
+    el.innerHTML='<div class="empty-state"><div class="icon">🧵</div>Pa gen komand ankò.</div>';
+    return;
+  }
+  el.innerHTML=orders.map(o=>`
+    <div style="padding:14px 16px;border:1.5px solid #e8cdb5;border-radius:10px;background:#fdf6ee;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+        <div>
+          <strong style="color:#8b3a0f">${o.clientNom}</strong>
+          <span style="margin:0 6px;color:#c9956a">·</span>
+          <span style="font-size:.88rem">${o.service}</span>
+        </div>
+        <span class="badge ${badgeClass(o.statut)}">${o.statut}</span>
+      </div>
+      ${o.description?`<div style="font-size:.8rem;color:#a0613a;margin-bottom:4px">${o.description}</div>`:''}
+      <div style="font-size:.82rem;color:#7a4a2a;margin-bottom:8px">
+        💰 ${o.prixTotal.toLocaleString()} HTG | Avans: ${(o.avance||0).toLocaleString()} | Rès: <strong>${o.reste.toLocaleString()} HTG</strong>
+        ${o.dateLivraison?` | 📅 ${o.dateLivraison}`:''}
+      </div>
+      <div class="actions">
+        <select class="btn btn-outline btn-sm" style="padding:5px 10px" onchange="updateStatut('${o.id}',this.value)">
+          <option${o.statut==='An Atant'?' selected':''}>An Atant</option>
+          <option${o.statut==='An Pwogrè'?' selected':''}>An Pwogrè</option>
+          <option${o.statut==='Livré'?' selected':''}>Livré</option>
+        </select>
+        <button class="btn btn-outline btn-sm" onclick="showReceipt('${o.id}')">🧾 Resi</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteOrder('${o.id}')">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+// =====================================================================
+//  RESI
+// =====================================================================
+function renderResiList(){
+  const el=document.getElementById('resi-list');
+  if(!el) return;
+  if(!orders.length){
+    el.innerHTML='<div class="empty-state"><div class="icon">🧾</div>Pa gen komand pou fè resi.</div>';
+    return;
+  }
+  el.innerHTML=orders.map(o=>`
+    <div class="client-item" onclick="showReceipt('${o.id}')">
+      <div class="client-info">
+        <strong>${o.clientNom} — ${o.service}</strong>
+        <span>💰 ${o.prixTotal.toLocaleString()} HTG | Rès: ${o.reste.toLocaleString()} HTG | <span class="badge ${badgeClass(o.statut)}">${o.statut}</span></span>
+      </div>
+      <span class="badge badge-yellow">Wè Resi →</span>
+    </div>`).join('');
+}
+
+function showReceipt(id){
+  const o=orders.find(x=>x.id===id);
+  currentReceiptOrder=o;
+  document.getElementById('resi-pick').classList.add('hidden');
+  document.getElementById('resi-show').classList.remove('hidden');
+  document.getElementById('receipt-content').innerHTML=`
+    <div class="receipt-header">
+      <h3>✂️ Gens Le Couturier</h3>
+      <p style="font-size:.8rem;color:#a0613a;margin-top:4px">📞 37374436</p>
+      <p style="font-size:.8rem;color:#a0613a;margin-top:2px">RESI KOMAND</p>
+      <p style="font-size:.78rem;color:#a0613a">#${o.id.toUpperCase()}</p>
+    </div>
+    <div style="margin-bottom:14px">
+      <div class="receipt-row"><span>👤 Kliyan</span><strong>${o.clientNom}</strong></div>
+      <div class="receipt-row"><span>🧵 Sèvis</span><span>${o.service}</span></div>
+      ${o.description?`<div class="receipt-row"><span>📝 Detay</span><span>${o.description}</span></div>`:''}
+      ${o.tissu?`<div class="receipt-row"><span>🪡 Twal</span><span>${o.tissu}</span></div>`:''}
+      <div class="receipt-row"><span>📅 Dat Komand</span><span>${o.dateCommande}</span></div>
+      ${o.dateLivraison?`<div class="receipt-row"><span>📦 Dat Livrezon</span><span>${o.dateLivraison}</span></div>`:''}
+      <div class="receipt-row"><span>📊 Estati</span><span class="badge ${badgeClass(o.statut)}">${o.statut}</span></div>
+    </div>
+    <hr class="divider"/>
+    <div>
+      ${o.prixTissu>0?`<div class="receipt-row"><span>🪡 Pri Twal</span><span>${parseFloat(o.prixTissu).toLocaleString()} HTG</span></div>`:''}
+      ${o.prixMain>0?`<div class="receipt-row"><span>✂️ Pri Travay</span><span>${parseFloat(o.prixMain).toLocaleString()} HTG</span></div>`:''}
+      <div class="receipt-row total"><span>TOTAL</span><span>${o.prixTotal.toLocaleString()} HTG</span></div>
+      <div class="receipt-row"><span>✅ Avans Peye</span><span style="color:#2e7d32">− ${(parseFloat(o.avance)||0).toLocaleString()} HTG</span></div>
+      <div class="receipt-row total"><span>💳 BALANS RES</span><span style="color:${o.reste>0?'#c62828':'#2e7d32'}">${o.reste.toLocaleString()} HTG</span></div>
+    </div>
+    <div style="text-align:center;margin-top:20px;font-size:.75rem;color:#a0613a;border-top:1px dashed #c9956a;padding-top:12px">
+      Mèsi pou konfyans ou! ✂️ Gens Le Couturier | 📞 37374436
+    </div>`;
+  showTab('resi');
+}
+
+function printReceipt(){
+  const html=document.getElementById('receipt-content').innerHTML;
+  const overlay=document.getElementById('print-overlay');
+  document.getElementById('print-receipt-content').innerHTML='<div class="receipt">'+html+'</div>';
+  overlay.style.display='block';
+  setTimeout(()=>{
+    window.print();
+    setTimeout(()=>overlay.style.display='none',500);
+  },300);
+}
+
+function shareWhatsApp(){
+  if(!currentReceiptOrder) return;
+  const o=currentReceiptOrder;
+  const msg=`✂️ *Gens Le Couturier*\n📞 37374436\n\n*RESI KOMAND #${o.id.toUpperCase()}*\n\n`+
+    `👤 Kliyan: ${o.clientNom}\n`+
+    `🧵 Sèvis: ${o.service}\n`+
+    (o.description?`📝 Detay: ${o.description}\n`:'')+
+    (o.tissu?`🪡 Twal: ${o.tissu}\n`:'')+
+    `📅 Dat: ${o.dateCommande}\n`+
+    (o.dateLivraison?`📦 Livrezon: ${o.dateLivraison}\n`:'')+
+    `\n💰 *Pri Twal:* ${(o.prixTissu||0).toLocaleString()} HTG\n`+
+    `✂️ *Pri Travay:* ${(o.prixMain||0).toLocaleString()} HTG\n`+
+    `📊 *TOTAL:* ${o.prixTotal.toLocaleString()} HTG\n`+
+    `✅ *Avans:* ${(o.avance||0).toLocaleString()} HTG\n`+
+    `💳 *Rès:* ${o.reste.toLocaleString()} HTG\n\n`+
+    `📊 Estati: ${o.statut}\n\n_Mèsi pou konfyans ou!_`;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+
+function closeReceipt(){
+  currentReceiptOrder=null;
+  document.getElementById('resi-pick').classList.remove('hidden');
+  document.getElementById('resi-show').classList.add('hidden');
+}
+
+// =====================================================================
+//  TABS
+// =====================================================================
+function showTab(tab){
+  ['clients','mezu','komand','resi'].forEach((t,i)=>{
+    document.getElementById('tab-'+t).classList.add('hidden');
+    document.querySelectorAll('.tab')[i].classList.remove('active');
+  });
+  document.getElementById('tab-'+tab).classList.remove('hidden');
+  document.querySelectorAll('.tab')[['clients','mezu','komand','resi'].indexOf(tab)].classList.add('active');
+  if(tab==='komand') renderOrderForm();
+  if(tab==='resi')   renderResiList();
+}
+
+// =====================================================================
+//  BACKUP
+// =====================================================================
+function exportData(){
+  const data={version:2,date:new Date().toISOString(),clients,orders};
+  const json=JSON.stringify(data,null,2);
+  const dateStr=new Date().toISOString().split('T')[0];
+  const a=document.createElement('a');
+  a.setAttribute('href','data:application/json;charset=utf-8,'+encodeURIComponent(json));
+  a.setAttribute('download','GensLeCouturier_backup_'+dateStr+'.json');
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast('✅ Backup sove!');
+}
+
+async function importData(event){
+  const file=event.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!data.clients||!data.orders){showToast('❌ Fichye a pa valid!','error');return;}
+      if(!confirm(`Ou pral chaje ${data.clients.length} kliyan ak ${data.orders.length} komand.\nDone ki deja la yo ap ranplase. Kontinye?`)) return;
+      if(useFirebase){
+        const batch=db.batch();
+        data.clients.forEach(c=>{const {id,...rest}=c;batch.set(db.collection('clients').doc(id),rest);});
+        data.orders.forEach(o=>{const {id,...rest}=o;batch.set(db.collection('orders').doc(id),rest);});
+        await batch.commit();
+      } else {
+        clients=data.clients; orders=data.orders;
+        saveLocal(); renderAll();
+      }
+      showToast(`✅ ${data.clients.length} kliyan | ${data.orders.length} komand chaje!`);
+    } catch(err){
+      showToast('❌ Erè fichye: '+err.message,'error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+// =====================================================================
+//  START
+// =====================================================================
+init();
+</script>
+</body>
+</html>
