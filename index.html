@@ -735,7 +735,7 @@ var lastSyncStatus='connecting';
 // =====================================================================
 //  KONSTANT
 // =====================================================================
-const MEZU_FIELDS=[
+var MEZU_FIELDS=[
   {key:"epaul",     label:"EPAUL"},
   {key:"manche",    label:"MANCHE"},
   {key:"long",      label:"LONG"},
@@ -758,16 +758,16 @@ function getServices(){
   return ["Koud Rad Dam","Koud Kostim Gason","Retouche","Koud Wòb Marye","Koud Inifòm","Koud Pantalon","Koud Chemiz","Koud Jip","Koud Kostim Tradisyonèl","Lòt"];
 }
 
-const ADMIN_EMAIL='gensboul@gmail.com';
-const genId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const today=()=>new Date().toISOString().split('T')[0];
+var ADMIN_EMAIL='gensboul@gmail.com';
+var genId=function(){ return Date.now().toString(36)+Math.random().toString(36).slice(2; },6);
+var today=function(){ return new Date().toISOString().split('T')[0]; };
 
 // =====================================================================
 //  ETAT GLOBAL
 // =====================================================================
-let clients=[], orders=[], selectedClientId=null;
-let db=null, auth=null, useFirebase=false, currentUser=null;
-let currentReceiptOrder=null;
+var clients=[], orders=[], selectedClientId=null;
+var db=null, auth=null, useFirebase=false, currentUser=null;
+var currentReceiptOrder=null;
 
 // =====================================================================
 //  TOAST
@@ -786,10 +786,10 @@ function showToast(msg, type, duration){
 //  SPINNER
 // =====================================================================
 function setLoading(btnId, loading, defaultText){
-  const btn=document.getElementById(btnId);
+  var btn=document.getElementById(btnId);
   if(!btn) return;
   btn.disabled=loading;
-  btn.innerHTML=loading?`<span class="spinner"></span>Ap tann...`:defaultText;
+  btn.innerHTML=loading?'<span class="spinner"></span>Ap tann...':defaultText;
 }
 
 // =====================================================================
@@ -818,16 +818,16 @@ function init(){
 //  FIREBASE SETUP
 // =====================================================================
 function connectFirebase(){
-  const apiKey=document.getElementById('cfg-apiKey').value.trim();
-  const projectId=document.getElementById('cfg-projectId').value.trim();
-  const appId=document.getElementById('cfg-appId').value.trim();
-  const senderId=document.getElementById('cfg-senderId').value.trim();
+  var apiKey=document.getElementById('cfg-apiKey').value.trim();
+  var projectId=document.getElementById('cfg-projectId').value.trim();
+  var appId=document.getElementById('cfg-appId').value.trim();
+  var senderId=document.getElementById('cfg-senderId').value.trim();
 
   if(!apiKey||!projectId||!appId){
     document.getElementById('setup-error').textContent='⚠️ Tanpri ranpli: API Key, Project ID, App ID!';
     return;
   }
-  const cfg={
+  var cfg={
     apiKey, projectId, appId,
     authDomain: projectId+'.firebaseapp.com',
     storageBucket: projectId+'.appspot.com',
@@ -849,7 +849,7 @@ function initFirebase(cfg){
     localStorage.setItem('glc_firebase_cfg', JSON.stringify(cfg));
 
     // Ekri auth — dirèkteman antre apre login/enskri
-    auth.onAuthStateChanged(user=>{
+    auth.onAuthStateChanged(function(user){
       if(user){
         currentUser=user;
         showMainApp();
@@ -890,16 +890,16 @@ function showAuthScreen(){
 }
 
 function switchAuthTab(tab){
-  ['login','register'].forEach(t=>{
+  ['login','register'].forEach(function(t){
     document.getElementById('auth-'+t).classList.toggle('hidden', t!==tab);
     document.getElementById('atab-'+t).classList.toggle('active', t===tab);
   });
   document.getElementById('auth-message').innerHTML='';
 }
 
-function showAuthMsg(msg, isError=false){
-  const el=document.getElementById('auth-message');
-  el.innerHTML=`<div class="${isError?'auth-error':'auth-success'}">${msg}</div>`;
+function showAuthMsg(msg, isError){
+  var el=document.getElementById('auth-message');
+  el.innerHTML='<div class="'+isError?\'auth-error\':\'auth-success\'+'">'+msg+'</div>';
 }
 
 // LOGIN
@@ -1018,12 +1018,12 @@ function showMainApp(){
   document.getElementById('main-app').classList.remove('hidden');
 
   if(currentUser){
-    const bar=document.getElementById('user-bar');
+    var bar=document.getElementById('user-bar');
     bar.style.display='flex';
     document.getElementById('user-email-display').textContent='👤 '+currentUser.email;
 
     // Bouton Paramèt (⚙️) — sèlman admin ka wè l
-    const cfgBtn=document.getElementById('btn-change-config');
+    var cfgBtn=document.getElementById('btn-change-config');
     if(cfgBtn) cfgBtn.style.display=(currentUser.email===ADMIN_EMAIL)?'':'none';
   }
 
@@ -1038,7 +1038,7 @@ function changeConfig(){
     return;
   }
   if(!confirm('Ou vle chanje konfigirasyon Firebase ou? Ou ap dekonekte.')) return;
-  if(auth) auth.signOut().catch(()=>{});
+  if(auth) auth.signOut().catchfunction((){});
   localStorage.removeItem('glc_firebase_cfg');
   localStorage.removeItem('glc_local_mode');
   location.reload();
@@ -1049,32 +1049,32 @@ function changeConfig(){
 // =====================================================================
 function startListeners(){
   // Chak itilizatè gen DB pa yo — toujou filtre pa uid
-  const uid=currentUser.uid;
+  var uid=currentUser.uid;
 
   // DB pèsonèl: chak itilizatè wè sèlman done li yo
   // Retire orderBy pou evite pwoblèm index Firestore — tri fèt nan JS
-  const clientQuery=db.collection('clients').where('uid','==',uid);
-  const orderQuery=db.collection('orders').where('uid','==',uid);
+  var clientQuery=db.collection('clients').where('uid','==',uid);
+  var orderQuery=db.collection('orders').where('uid','==',uid);
 
 
-  clientQuery.onSnapshot(snap=>{
-    clients=snap.docs.map(d=>({id:d.id,...d.data()}));
+  clientQuery.onSnapshot(function(snap){
+    clients=snap.docs.map(function(d){ return ({id:d.id; },...d.data()}));
     // Tri pa dat desandan nan JS
-    clients.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+    clients.sortfunction((a,b){ return new Date(b.date||0)-new Date(a.date||0)); };
     setSyncStatus('online');
     renderAll();
-  }, err=>{
+  }, function(err){
     setSyncStatus('error');
     showToast('❌ Erè chajman kliyan: '+err.message,'error');
     console.error('Clients listener error:',err);
   });
 
-  orderQuery.onSnapshot(snap=>{
-    orders=snap.docs.map(d=>({id:d.id,...d.data()}));
+  orderQuery.onSnapshot(function(snap){
+    orders=snap.docs.map(function(d){ return ({id:d.id; },...d.data()}));
     // Tri pa dat desandan nan JS
-    orders.sort((a,b)=>new Date(b.dateCreation||0)-new Date(a.dateCreation||0));
+    orders.sortfunction((a,b){ return new Date(b.dateCreation||0)-new Date(a.dateCreation||0)); };
     renderAll();
-  }, err=>{
+  }, function(err){
     showToast('❌ Erè chajman komand: '+err.message,'error');
     console.error('Orders listener error:',err);
   });
@@ -1082,8 +1082,8 @@ function startListeners(){
 
 function setSyncStatus(s){
   lastSyncStatus=s;
-  const dot=document.getElementById('sync-dot');
-  const txt=document.getElementById('sync-text');
+  var dot=document.getElementById('sync-dot');
+  var txt=document.getElementById('sync-text');
   if(!dot) return;
   dot.className='dot';
   if(s==='online'){dot.classList.add('dot-green');txt.textContent=t('sync_ok');}
@@ -1183,10 +1183,10 @@ function newClient(){
 }
 
 async function saveClient(){
-  const nom=document.getElementById('f-nom').value.trim();
+  var nom=document.getElementById('f-nom').value.trim();
   if(!nom){showToast('⚠️ Mete non kliyan an!','error');return;}
 
-  const data={
+  var data={
     nom,
     tel:document.getElementById('f-tel').value.trim(),
     adres:document.getElementById('f-adres').value.trim(),
@@ -1205,16 +1205,16 @@ async function saveClient(){
         document.getElementById('client-form-card').classList.add('hidden');
       } else {
         if(currentUser) data.uid=currentUser.uid;
-        const ref=await db.collection('clients').add({...data,mezu:{}});
+        var ref=await db.collection('clients').add({...data,mezu:{}});
         selectedClientId=ref.id;
         showToast(t('toast_client_saved'));
         document.getElementById('client-form-card').classList.add('hidden');
       }
     } else {
       if(selectedClientId){
-        clients=clients.map(c=>c.id===selectedClientId?{...c,...data}:c);
+        clients=clients.map(function(c){ return c.id===selectedClientId?{...c; },...data}:c);
       } else {
-        const nc={id:genId(),...data,mezu:{}};
+        var nc={id:genId(),...data,mezu:{}};
         clients.unshift(nc);
         selectedClientId=nc.id;
       }
@@ -1233,25 +1233,25 @@ async function saveClient(){
 
 async function deleteClient(){
   if(!selectedClientId){return;}
-  const c=clients.find(x=>x.id===selectedClientId);
-  const relatedOrders=orders.filter(o=>o.clientId===selectedClientId);
-  const msg=relatedOrders.length
-    ?`Ou pral efase "${c.nom}" ak ${relatedOrders.length} komand li yo. Sa se pèmanan!`
-    :`Ou pral efase kliyan "${c.nom}". Sa se pèmanan!`;
+  var c=clients.find(function(x){ return x.id===selectedClientId); };
+  var relatedOrders=orders.filter(function(o){ return o.clientId===selectedClientId); };
+  var msg=relatedOrders.length
+    ?'Ou pral efase "'+c.nom+'" ak '+relatedOrders.length+' komand li yo. Sa se pèmanan!'
+    :'Ou pral efase kliyan "'+c.nom+'". Sa se pèmanan!';
   if(!confirm(msg)) return;
 
   try{
     if(useFirebase){
-      const batch=db.batch();
+      var batch=db.batch();
       // Efase komand yo tou
-      relatedOrders.forEach(o=>{
+      relatedOrders.forEach(function(o){
         batch.delete(db.collection('orders').doc(o.id));
       });
       batch.delete(db.collection('clients').doc(selectedClientId));
       await batch.commit();
     } else {
-      orders=orders.filter(o=>o.clientId!==selectedClientId);
-      clients=clients.filter(c=>c.id!==selectedClientId);
+      orders=orders.filter(function(o){ return o.clientId!==selectedClientId); };
+      clients=clients.filter(function(c){ return c.id!==selectedClientId); };
       saveLocal();
       renderAll();
     }
@@ -1276,7 +1276,7 @@ function selectClient(id){
 
 function openEditClientForm(){
   if(!selectedClientId) return;
-  const c=clients.find(x=>x.id===selectedClientId);
+  var c=clients.find(function(x){ return x.id===selectedClientId); };
   document.getElementById('f-nom').value=c.nom||'';
   document.getElementById('f-tel').value=c.tel||'';
   document.getElementById('f-adres').value=c.adres||'';
@@ -1289,7 +1289,7 @@ function openEditClientForm(){
 
 function openNewClientForm(){
   selectedClientId=null;
-  ['nom','tel','adres','notes'].forEach(k=>document.getElementById('f-'+k).value='');
+  ['nom','tel','adres','notes'].forEach(function(k){ return document.getElementById('f-'+k).value=''); };
   document.getElementById('client-form-title').textContent='➕ Nouvo Kliyan';
   document.getElementById('btn-delete-client').classList.add('hidden');
   document.getElementById('btn-edit-client').classList.add('hidden');
@@ -1313,18 +1313,18 @@ function renderMezu(){
     document.getElementById('mezu-content').classList.add('hidden');
     return;
   }
-  const c=clients.find(x=>x.id===selectedClientId);
+  var c=clients.find(function(x){ return x.id===selectedClientId); };
   if(!c) return;
   document.getElementById('mezu-no-client').classList.add('hidden');
   document.getElementById('mezu-content').classList.remove('hidden');
   document.getElementById('mezu-client-name').textContent=c.nom;
-  document.getElementById('mezu-client-info').textContent=`📞 ${c.tel||'—'} | 📍 ${c.adres||'—'}`;
+  document.getElementById('mezu-client-info').textContent='📞 '+c.tel||\'—\'+' | 📍 '+c.adres||\'—\'+'';
 
-  const mezu=c.mezu||{};
-  const mid=Math.ceil(MEZU_FIELDS.length/2);
-  const leftF=MEZU_FIELDS.slice(0,mid);
-  const rightF=MEZU_FIELDS.slice(mid);
-  const makeView=function(fields){
+  var mezu=c.mezu||{};
+  var mid=Math.ceil(MEZU_FIELDS.length/2);
+  var leftF=MEZU_FIELDS.slice(0,mid);
+  var rightF=MEZU_FIELDS.slice(mid);
+  var makeView=function(fields){
     return fields.map(function(f){
       return '<div class="mezu-item">'
         +'<div class="val">'+(mezu[f.key]?mezu[f.key]+' cm':'—')+'</div>'
@@ -1338,8 +1338,8 @@ function renderMezu(){
     +'<div style="display:flex;flex-direction:column;gap:10px">'+makeView(rightF)+'</div>'
     +'</div>';
 
-  const co=orders.filter(o=>o.clientId===selectedClientId);
-  const oc=document.getElementById('mezu-orders-card');
+  var co=orders.filter(function(o){ return o.clientId===selectedClientId); };
+  var oc=document.getElementById('mezu-orders-card');
   if(co.length){
     oc.classList.remove('hidden');
     document.getElementById('mezu-orders-count').textContent=co.length;
@@ -1402,9 +1402,9 @@ function cancelEditMezu(){
 }
 
 async function saveMezu(){
-  const mezu={};
-  MEZU_FIELDS.forEach(f=>{
-    const v=document.getElementById('mz-'+f.key)?.value;
+  var mezu={};
+  MEZU_FIELDS.forEach(function(f){
+    var v=document.getElementById('mz-'+f.key)?.value;
     if(v) mezu[f.key]=v;
   });
 
@@ -1414,7 +1414,7 @@ async function saveMezu(){
       // Update sèlman champ mezu — pa touche uid
       await db.collection('clients').doc(selectedClientId).update({mezu:mezu});
     } else {
-      clients=clients.map(c=>c.id===selectedClientId?{...c,mezu}:c);
+      clients=clients.map(function(c){ return c.id===selectedClientId?{...c; },mezu}:c);
       saveLocal();
       renderMezu();
     }
@@ -1455,15 +1455,15 @@ function displayStatut(s){
 }
 
 function renderOrderForm(){
-  const sel=document.getElementById('o-client');
+  var sel=document.getElementById('o-client');
   if(!sel) return;
-  const cur=sel.value;
+  var cur=sel.value;
   sel.innerHTML='<option value="">— '+t('lbl_o_client')+' —</option>'+
-    clients.map(c=>`<option value="${c.id}"${c.id===cur?' selected':''}>${c.nom}</option>`).join('');
+    clients.map(function(c){ return '<option value="'+c.id+'"'+c.id===cur?\' selected\':\'\'+'>'+c.nom+'</option>').join(''); };
   // Toujou re-jenere sèvis yo pou lang aktyèl la
-  const svc=document.getElementById('o-service');
-  const curSvc=svc?svc.value:'';
-  if(svc) svc.innerHTML=getServices().map(s=>`<option${s===curSvc?' selected':''}>${s}</option>`).join('');
+  var svc=document.getElementById('o-service');
+  var curSvc=svc?svc.value:'';
+  if(svc) svc.innerHTML=getServices().map(function(s){ return '<option'+s===curSvc?\' selected\':\'\'+'>'+s+'</option>').join(''); };
   if(!document.getElementById('o-dkomand').value) document.getElementById('o-dkomand').value=today();
 }
 
@@ -1476,15 +1476,15 @@ function updateTotal(){
 }
 
 async function saveOrder(){
-  const clientId=document.getElementById('o-client').value;
+  var clientId=document.getElementById('o-client').value;
   if(!clientId){showToast('⚠️ Chwazi yon kliyan!','error');return;}
 
-  const c=clients.find(x=>x.id===clientId);
-  const pt=parseFloat(document.getElementById('o-ptissu').value)||0;
-  const pm=parseFloat(document.getElementById('o-pmain').value)||0;
-  const av=parseFloat(document.getElementById('o-avans').value)||0;
+  var c=clients.find(function(x){ return x.id===clientId); };
+  var pt=parseFloat(document.getElementById('o-ptissu').value)||0;
+  var pm=parseFloat(document.getElementById('o-pmain').value)||0;
+  var av=parseFloat(document.getElementById('o-avans').value)||0;
 
-  const order={
+  var order={
     clientId, clientNom:c.nom,
     service:document.getElementById('o-service').value,
     description:document.getElementById('o-desc').value.trim(),
@@ -1507,7 +1507,7 @@ async function saveOrder(){
       renderOrderList();
       renderResiList();
     }
-    ['o-desc','o-tissu','o-ptissu','o-pmain','o-avans','o-dliv'].forEach(id=>{
+    ['o-desc','o-tissu','o-ptissu','o-pmain','o-avans','o-dliv'].forEach(function(id){
       document.getElementById(id).value='';
     });
     updateTotal();
@@ -1524,7 +1524,7 @@ async function updateStatut(id, val){
     if(useFirebase){
       await db.collection('orders').doc(id).update({statut:val});
     } else {
-      orders=orders.map(o=>o.id===id?{...o,statut:val}:o);
+      orders=orders.map(function(o){ return o.id===id?{...o; },statut:val}:o);
       saveLocal();
       renderOrderList();
       renderResiList();
@@ -1542,7 +1542,7 @@ async function deleteOrder(id){
     if(useFirebase){
       await db.collection('orders').doc(id).delete();
     } else {
-      orders=orders.filter(o=>o.id!==id);
+      orders=orders.filter(function(o){ return o.id!==id); };
       saveLocal();
       renderOrderList();
       renderResiList();
@@ -1614,7 +1614,7 @@ function renderResiList(){
 }
 
 function showReceipt(id){
-  const o=orders.find(x=>x.id===id);
+  var o=orders.find(function(x){ return x.id===id); };
   currentReceiptOrder=o;
   document.getElementById('resi-pick').classList.add('hidden');
   document.getElementById('resi-show').classList.remove('hidden');
@@ -1694,20 +1694,20 @@ function printReceipt(){
 
 function shareWhatsApp(){
   if(!currentReceiptOrder) return;
-  const o=currentReceiptOrder;
-  const msg=`✂️ *Gens Le Couturier*\n📞 37374436\n\n*RESI KOMAND #${o.id.toUpperCase()}*\n\n`+
-    `👤 Kliyan: ${o.clientNom}\n`+
-    `🧵 Sèvis: ${o.service}\n`+
-    (o.description?`📝 Detay: ${o.description}\n`:'')+
-    (o.tissu?`🪡 Twal: ${o.tissu}\n`:'')+
-    `📅 Dat: ${o.dateCommande}\n`+
-    (o.dateLivraison?`📦 Livrezon: ${o.dateLivraison}\n`:'')+
-    `\n💰 *Pri Twal:* ${(o.prixTissu||0).toLocaleString()} HTG\n`+
-    `✂️ *Pri Travay:* ${(o.prixMain||0).toLocaleString()} HTG\n`+
-    `📊 *TOTAL:* ${o.prixTotal.toLocaleString()} HTG\n`+
-    `✅ *Avans:* ${(o.avance||0).toLocaleString()} HTG\n`+
-    `💳 *Rès:* ${o.reste.toLocaleString()} HTG\n\n`+
-    `📊 Estati: ${o.statut}\n\n_Mèsi pou konfyans ou!_`;
+  var o=currentReceiptOrder;
+  var msg='✂️ *Gens Le Couturier*\n📞 37374436\n\n*RESI KOMAND #'+o.id.toUpperCase()+'*\n\n'+
+    '👤 Kliyan: '+o.clientNom+'\n'+
+    '🧵 Sèvis: '+o.service+'\n'+
+    (o.description?'📝 Detay: '+o.description+'\n':'')+
+    (o.tissu?'🪡 Twal: '+o.tissu+'\n':'')+
+    '📅 Dat: '+o.dateCommande+'\n'+
+    (o.dateLivraison?'📦 Livrezon: '+o.dateLivraison+'\n':'')+
+    '\n💰 *Pri Twal:* '+(o.prixTissu||0).toLocaleString()+' HTG\n'+
+    '✂️ *Pri Travay:* '+(o.prixMain||0).toLocaleString()+' HTG\n'+
+    '📊 *TOTAL:* '+o.prixTotal.toLocaleString()+' HTG\n'+
+    '✅ *Avans:* '+(o.avance||0).toLocaleString()+' HTG\n'+
+    '💳 *Rès:* '+o.reste.toLocaleString()+' HTG\n\n'+
+    '📊 Estati: '+o.statut+'\n\n_Mèsi pou konfyans ou!_';
   window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 }
 
@@ -1721,7 +1721,7 @@ function closeReceipt(){
 //  TABS
 // =====================================================================
 function showTab(tab){
-  ['clients','mezu','komand','resi'].forEach((t,i)=>{
+  ['clients','mezu','komand','resi'].forEachfunction((t,i){
     document.getElementById('tab-'+t).classList.add('hidden');
     document.querySelectorAll('.tab')[i].classList.remove('active');
   });
@@ -1735,10 +1735,10 @@ function showTab(tab){
 //  BACKUP
 // =====================================================================
 function exportData(){
-  const data={version:2,date:new Date().toISOString(),clients,orders};
-  const json=JSON.stringify(data,null,2);
-  const dateStr=new Date().toISOString().split('T')[0];
-  const a=document.createElement('a');
+  var data={version:2,date:new Date().toISOString(),clients,orders};
+  var json=JSON.stringify(data,null,2);
+  var dateStr=new Date().toISOString().split('T')[0];
+  var a=document.createElement('a');
   a.setAttribute('href','data:application/json;charset=utf-8,'+encodeURIComponent(json));
   a.setAttribute('download','GensLeCouturier_backup_'+dateStr+'.json');
   document.body.appendChild(a);
@@ -1748,24 +1748,24 @@ function exportData(){
 }
 
 async function importData(event){
-  const file=event.target.files[0];
+  var file=event.target.files[0];
   if(!file) return;
-  const reader=new FileReader();
+  var reader=new FileReader();
   reader.onload=async function(e){
     try{
-      const data=JSON.parse(e.target.result);
+      var data=JSON.parse(e.target.result);
       if(!data.clients||!data.orders){showToast('❌ Fichye a pa valid!','error');return;}
-      if(!confirm(`Ou pral chaje ${data.clients.length} kliyan ak ${data.orders.length} komand.\nDone ki deja la yo ap ranplase. Kontinye?`)) return;
+      if(!confirm('Ou pral chaje '+data.clients.length+' kliyan ak '+data.orders.length+' komand.\nDone ki deja la yo ap ranplase. Kontinye?')) return;
       if(useFirebase){
-        const batch=db.batch();
-        data.clients.forEach(c=>{const {id,...rest}=c;batch.set(db.collection('clients').doc(id),rest);});
-        data.orders.forEach(o=>{const {id,...rest}=o;batch.set(db.collection('orders').doc(id),rest);});
+        var batch=db.batch();
+        data.clients.forEach(function(c){var {id,...rest}=c;batch.set(db.collection('clients').doc(id),rest);});
+        data.orders.forEach(function(o){var {id,...rest}=o;batch.set(db.collection('orders').doc(id),rest);});
         await batch.commit();
       } else {
         clients=data.clients; orders=data.orders;
         saveLocal(); renderAll();
       }
-      showToast(`✅ ${data.clients.length} kliyan | ${data.orders.length} komand chaje!`);
+      showToast('✅ '+data.clients.length+' kliyan | '+data.orders.length+' komand chaje!');
     } catch(err){
       showToast('❌ Erè fichye: '+err.message,'error');
     }
